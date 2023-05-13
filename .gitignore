@@ -45,3 +45,4 @@ app.*.map.json
 
 linux/
 macos/
+lib/firebase_options.dart
