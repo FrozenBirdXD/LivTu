@@ -14,7 +14,6 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -66,13 +65,16 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                           .add(const AuthSendVerificationEmailEvent());
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[400],
+                      backgroundColor: Theme.of(context).primaryColor,
                       textStyle: const TextStyle(fontSize: 18.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),
-                    child: const Text('Resend verification email'),
+                    child: const Text(
+                      'Resend verification email',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -88,7 +90,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                           .add(const AuthLogoutEvent());
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightBlue.shade200,
+                      backgroundColor: Theme.of(context).secondaryHeaderColor,
                       textStyle: const TextStyle(fontSize: 18.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),

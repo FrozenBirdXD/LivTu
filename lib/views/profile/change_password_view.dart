@@ -64,7 +64,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
             centerTitle: true,
           ),
           resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.white,
           body: SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -117,8 +116,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.0),
-                            borderSide: BorderSide(
-                              color: Colors.blue[300]!,
+                            borderSide: const BorderSide(
+                              color: Colors.teal,
                             ),
                           ),
                         ),
@@ -148,13 +147,16 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue[400],
+                            backgroundColor: Theme.of(context).primaryColor,
                             textStyle: const TextStyle(fontSize: 18.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: const Text('Update Password'),
+                          child: const Text(
+                            'Update Password',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -171,7 +173,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightBlue.shade200,
+                            backgroundColor: Theme.of(context).secondaryHeaderColor,
                             textStyle: const TextStyle(fontSize: 18.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),

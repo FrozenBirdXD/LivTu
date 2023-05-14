@@ -68,7 +68,6 @@ class _LoginViewState extends State<LoginView> {
         },
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.white,
           body: SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -121,8 +120,8 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.0),
-                            borderSide: BorderSide(
-                              color: Colors.blue[300]!,
+                            borderSide: const BorderSide(
+                              color: Colors.teal,
                             ),
                           ),
                         ),
@@ -165,8 +164,8 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.0),
-                            borderSide: BorderSide(
-                              color: Colors.blue[300]!,
+                            borderSide: const BorderSide(
+                              color: Colors.teal,
                             ),
                           ),
                         ),
@@ -186,13 +185,18 @@ class _LoginViewState extends State<LoginView> {
                             _submitFormLogin();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue[400],
+                            backgroundColor: Theme.of(context).primaryColor,
                             textStyle: const TextStyle(fontSize: 18.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: const Text('Log In'),
+                          child: const Text(
+                            'Log In',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -208,7 +212,7 @@ class _LoginViewState extends State<LoginView> {
                                 .add(const AuthForgotPasswordEvent());
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightBlue.shade200,
+                            backgroundColor: Theme.of(context).secondaryHeaderColor,
                             textStyle: const TextStyle(fontSize: 18.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
@@ -230,7 +234,7 @@ class _LoginViewState extends State<LoginView> {
                                 .add(const AuthShouldRegisterEvent());
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightBlue.shade200,
+                            backgroundColor: Theme.of(context).secondaryHeaderColor,
                             textStyle: const TextStyle(fontSize: 18.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),

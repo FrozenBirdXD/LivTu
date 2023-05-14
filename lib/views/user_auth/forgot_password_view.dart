@@ -43,7 +43,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         },
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.white,
           body: SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -94,8 +93,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(
-                            color: Colors.blue[300]!,
+                          borderSide: const BorderSide(
+                            color: Colors.teal,
                           ),
                         ),
                       ),
@@ -118,13 +117,18 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[400],
+                          backgroundColor: Theme.of(context).primaryColor,
                           textStyle: const TextStyle(fontSize: 18.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        child: const Text('Send password reset link'),
+                        child: const Text(
+                          'Send password reset link',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -140,7 +144,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               .add(const AuthLogoutEvent());
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightBlue.shade200,
+                          backgroundColor: Theme.of(context).secondaryHeaderColor,
                           textStyle: const TextStyle(fontSize: 18.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),

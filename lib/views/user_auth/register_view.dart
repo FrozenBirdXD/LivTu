@@ -67,7 +67,6 @@ class _RegisterViewState extends State<RegisterView> {
         },
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.white,
           body: SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -119,8 +118,8 @@ class _RegisterViewState extends State<RegisterView> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.0),
-                            borderSide: BorderSide(
-                              color: Colors.blue[300]!,
+                            borderSide: const BorderSide(
+                              color: Colors.teal,
                             ),
                           ),
                         ),
@@ -163,8 +162,8 @@ class _RegisterViewState extends State<RegisterView> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.0),
-                            borderSide: BorderSide(
-                              color: Colors.blue[300]!,
+                            borderSide: const BorderSide(
+                              color: Colors.teal,
                             ),
                           ),
                         ),
@@ -184,13 +183,16 @@ class _RegisterViewState extends State<RegisterView> {
                             _submitFormRegister();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue[400],
+                            backgroundColor: Theme.of(context).primaryColor,
                             textStyle: const TextStyle(fontSize: 18.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: const Text('Sign Up'),
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -206,7 +208,7 @@ class _RegisterViewState extends State<RegisterView> {
                                 .add(const AuthLogoutEvent());
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightBlue.shade200,
+                            backgroundColor: Theme.of(context).secondaryHeaderColor,
                             textStyle: const TextStyle(fontSize: 18.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
