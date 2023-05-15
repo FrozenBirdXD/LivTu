@@ -13,17 +13,27 @@ import 'package:livtu/views/profile/change_password_view.dart';
 import 'package:livtu/views/profile/profile_view.dart';
 import 'package:livtu/views/user_auth/register_view.dart';
 import 'package:livtu/views/user_auth/verify_email_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(
+      locale: Locale('en'),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Locale locale;
+
+  const MyApp({required this.locale, super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: locale,
       title: 'LivTu',
       theme: ThemeData(
         useMaterial3: true,
@@ -74,7 +84,7 @@ class _HomePageState extends State<HomePage> {
     const ScheduleView(),
     const TutorView(),
     const StudyMaterialView(),
-    const ProfileView(),
+    ProfileView(),
   ];
 
   @override
