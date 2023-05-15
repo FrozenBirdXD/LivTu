@@ -68,8 +68,8 @@ class _OverviewState extends State<Overview> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text(' Edit Profile'),
+              leading: const Icon(Icons.settings),
+              title: const Text(' Settings'),
               onTap: () {
                 Navigator.pop(context);
               },
