@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:livtu/constants/routes.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/services/auth/firebase_auth_provider.dart';
 import 'package:livtu/utils/loading/loading_screen.dart';
 import 'package:livtu/views/overview/overview.dart';
+import 'package:livtu/views/schedule/edit_event_view.dart';
+import 'package:livtu/views/schedule/provider/event_provider.dart';
 import 'package:livtu/views/schedule/schedule_view.dart';
 import 'package:livtu/views/study_material/study_material_view.dart';
 import 'package:livtu/views/tutor/tutor_view.dart';
@@ -14,6 +17,7 @@ import 'package:livtu/views/profile/profile_view.dart';
 import 'package:livtu/views/user_auth/register_view.dart';
 import 'package:livtu/views/user_auth/verify_email_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
@@ -30,39 +34,45 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: locale,
-      title: 'LivTu',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme(
-          primary: Colors.teal,
-          onPrimary: Colors.white,
-          secondary: Colors.lightBlue,
-          onSecondary: Colors.white,
-          surface: Colors.white,
-          onSurface: Colors.black,
-          background: Colors.grey.shade100,
-          error: Colors.red,
-          onError: Colors.white,
-          brightness: Brightness.light,
-          onBackground: Colors.white,
+    return ChangeNotifierProvider(
+      create: (context) => EventProvider(),
+      child: MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: locale,
+        routes: {
+          editCalendarEventRoute: (context) => const EditEventView(),
+        },
+        title: 'LivTu',
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme(
+            primary: Colors.teal,
+            onPrimary: Colors.white,
+            secondary: Colors.lightBlue,
+            onSecondary: Colors.white,
+            surface: Colors.white,
+            onSurface: Colors.black,
+            background: Colors.grey.shade100,
+            error: Colors.red,
+            onError: Colors.white,
+            brightness: Brightness.light,
+            onBackground: Colors.white,
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.teal,
+            foregroundColor: Colors.white,
+          ),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.teal,
+            unselectedItemColor: Colors.grey,
+          ),
         ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.teal,
-          foregroundColor: Colors.white,
+        home: BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(FirebaseAuthProvider()),
+          child: const HomePage(),
         ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Colors.white,
-          selectedItemColor: Colors.teal,
-          unselectedItemColor: Colors.grey,
-        ),
-      ),
-      home: BlocProvider<AuthBloc>(
-        create: (context) => AuthBloc(FirebaseAuthProvider()),
-        child: const HomePage(),
       ),
     );
   }
