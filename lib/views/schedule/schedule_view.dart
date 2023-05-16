@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/constants/routes.dart';
+import 'package:livtu/views/schedule/provider/event_data_source.dart';
+import 'package:livtu/views/schedule/provider/event_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class ScheduleView extends StatefulWidget {
@@ -15,6 +18,8 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   @override
   Widget build(BuildContext context) {
+    final events = Provider.of<EventProvider>(context).events;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -71,6 +76,11 @@ class _ScheduleViewState extends State<ScheduleView> {
             child: SfCalendar(
               key: _calendarKey,
               view: _calendarView,
+              onTap: (calendarTapDetails) {
+                if (calendarTapDetails.appointments == null) return;
+                // final event = calendarTapDetails.appointments!.first;
+                //Navigator.pushNamed(context, )
+              },
               firstDayOfWeek: 1,
               onViewChanged: (ViewChangedDetails details) {},
               selectionDecoration: BoxDecoration(
@@ -81,6 +91,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(8),
                 ),
+                color: Colors.teal.shade200.withOpacity(0.1),
                 shape: BoxShape.rectangle,
               ),
               showNavigationArrow: true,
@@ -89,63 +100,11 @@ class _ScheduleViewState extends State<ScheduleView> {
                 backgroundColor: Colors.teal.shade100,
               ),
               monthViewSettings: const MonthViewSettings(showAgenda: true),
-              dataSource: MeetingDataSource(_getDataSource()),
+              dataSource: EventDataSource(events),
             ),
           ),
         ],
       ),
     );
   }
-
-  List<Meeting> _getDataSource() {
-    final List<Meeting> meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime =
-        DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 2));
-    meetings.add(Meeting(
-        'Conference', startTime, endTime, const Color(0xFF0F8644), false));
-    return meetings;
-  }
-}
-
-class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Meeting> source) {
-    appointments = source;
-  }
-
-  @override
-  DateTime getStartTime(int index) {
-    return appointments![index].from;
-  }
-
-  @override
-  DateTime getEndTime(int index) {
-    return appointments![index].to;
-  }
-
-  @override
-  String getSubject(int index) {
-    return appointments![index].eventName;
-  }
-
-  @override
-  Color getColor(int index) {
-    return appointments![index].background;
-  }
-
-  @override
-  bool isAllDay(int index) {
-    return appointments![index].isAllDay;
-  }
-}
-
-class Meeting {
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
-
-  String eventName;
-  DateTime from;
-  DateTime to;
-  Color background;
-  bool isAllDay;
 }
