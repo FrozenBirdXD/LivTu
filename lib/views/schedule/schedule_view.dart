@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/constants/routes.dart';
+import 'package:livtu/views/drawer.dart';
 import 'package:livtu/views/schedule/provider/event_data_source.dart';
 import 'package:livtu/views/schedule/provider/event_provider.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class _ScheduleViewState extends State<ScheduleView> {
     final events = Provider.of<EventProvider>(context).events;
 
     return Scaffold(
+      drawer: getUniversalDrawer(context: context),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () => Navigator.of(context).pushNamed(editCalendarEventRoute),
