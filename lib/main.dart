@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
         locale: locale,
         routes: {
           editCalendarEventRoute: (context) => const EditEventView(),
+          settingsRoute:(context) => ProfileView(),
         },
         title: 'LivTu',
         theme: ThemeData(
@@ -94,7 +95,6 @@ class _HomePageState extends State<HomePage> {
     const ScheduleView(),
     const TutorView(),
     const StudyMaterialView(),
-    ProfileView(),
   ];
 
   @override
@@ -142,10 +142,6 @@ class _HomePageState extends State<HomePage> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.menu_book_rounded),
                   label: 'Study Material',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
                 ),
               ],
             ),
