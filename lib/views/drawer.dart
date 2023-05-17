@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/constants/routes.dart';
+import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/utils/dialogs/sign_out_dialog.dart';
 
@@ -16,10 +17,12 @@ Drawer getUniversalDrawer({required BuildContext context}) {
           child: UserAccountsDrawerHeader(
             decoration: const BoxDecoration(color: Colors.teal),
             accountName: const Text(
-              "User 1234",
+              'User 1234',
               style: TextStyle(fontSize: 18),
             ),
-            accountEmail: const Text("example@gmail.com"),
+            accountEmail: Text(
+              AuthService.firebase().currentUser?.email ?? 'Not registered',
+            ),
             currentAccountPictureSize: const Size.square(50),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.teal.shade200,

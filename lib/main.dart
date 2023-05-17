@@ -120,6 +120,7 @@ class _HomePageState extends State<HomePage> {
           return Scaffold(
             body: _views[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(
+              landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
               currentIndex: _currentIndex,
               onTap: (index) {
                 setState(() {
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage> {
               },
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.help_center_outlined),
+                  icon: Icon(Icons.home),
                   label: 'Overview',
                 ),
                 BottomNavigationBarItem(
