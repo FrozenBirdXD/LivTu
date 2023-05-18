@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
 
 class ChangePasswordView extends StatefulWidget {
@@ -32,7 +33,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           title: const Text('Change Password'),
           centerTitle: true,
         ),
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -134,7 +135,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
 
   void updatePassword() async {
     try {
-      await FirebaseAuth.instance.currentUser!.updatePassword(_controller.text);
+      await AuthService.firebase().changePassword(newPassword: _controller.text);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Password updated succesfully!'),
@@ -164,7 +165,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
     } catch (e) {
       await showErrorDialog(
         context,
-        'Authentication error',
+        e as String,
       );
     }
   }

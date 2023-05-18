@@ -38,8 +38,10 @@ class ProfileView extends StatelessWidget {
               height: 32,
             ),
             ElevatedButton(
-              onPressed: () {},
-              child: const Text('Edit Profile'),
+              onPressed: () {
+                Navigator.of(context).pushNamed(changeUsernameRoute);
+              },
+              child: const Text('Change Username'),
             ),
             const SizedBox(height: 8),
             ElevatedButton(
