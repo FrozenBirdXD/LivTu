@@ -5,6 +5,7 @@ import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/services/auth/firebase_auth_provider.dart';
 import 'package:livtu/utils/loading/loading_screen.dart';
 import 'package:livtu/views/overview/overview.dart';
+import 'package:livtu/views/profile/change_username_view.dart';
 import 'package:livtu/views/schedule/edit_event_view.dart';
 import 'package:livtu/views/schedule/provider/event_provider.dart';
 import 'package:livtu/views/schedule/schedule_view.dart';
@@ -42,8 +43,9 @@ class MyApp extends StatelessWidget {
         locale: locale,
         routes: {
           editCalendarEventRoute: (context) => const EditEventView(),
-          settingsRoute:(context) => ProfileView(),
-          changePasswordRoute:(context) => const ChangePasswordView(),
+          settingsRoute: (context) => ProfileView(),
+          changePasswordRoute: (context) => const ChangePasswordView(),
+          changeUsernameRoute: (context) => const ChangeUsernameView(),
         },
         title: 'LivTu',
         theme: ThemeData(
