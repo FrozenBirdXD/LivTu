@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:livtu/views/schedule/event_model.dart';
+import 'package:livtu/services/schedule/event_model.dart';
 
 class EventProvider extends ChangeNotifier {
   final List<Event> _events = [];

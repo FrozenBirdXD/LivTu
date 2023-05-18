@@ -7,7 +7,7 @@ import 'package:livtu/utils/loading/loading_screen.dart';
 import 'package:livtu/views/overview/overview.dart';
 import 'package:livtu/views/profile/change_username_view.dart';
 import 'package:livtu/views/schedule/edit_event_view.dart';
-import 'package:livtu/views/schedule/provider/event_provider.dart';
+import 'package:livtu/services/schedule/provider/event_provider.dart';
 import 'package:livtu/views/schedule/schedule_view.dart';
 import 'package:livtu/views/study_material/study_material_view.dart';
 import 'package:livtu/views/tutor/tutor_view.dart';

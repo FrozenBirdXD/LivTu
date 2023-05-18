@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/utils/conversions/event_model_conversions.dart';
-import 'package:livtu/views/schedule/event_model.dart';
-import 'package:livtu/views/schedule/provider/event_provider.dart';
+import 'package:livtu/services/schedule/event_model.dart';
+import 'package:livtu/services/schedule/provider/event_provider.dart';
 import 'package:provider/provider.dart';
 
 class EditEventView extends StatefulWidget {

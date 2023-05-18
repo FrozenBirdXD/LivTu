@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/constants/routes.dart';
 import 'package:livtu/views/drawer.dart';
-import 'package:livtu/views/schedule/provider/event_data_source.dart';
-import 'package:livtu/views/schedule/provider/event_provider.dart';
+import 'package:livtu/services/schedule/provider/event_data_source.dart';
+import 'package:livtu/services/schedule/provider/event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 

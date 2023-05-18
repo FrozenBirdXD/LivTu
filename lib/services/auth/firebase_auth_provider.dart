@@ -146,7 +146,7 @@ class FirebaseAuthProvider implements AuthProvider {
   Future<void> setDisplayName({required String newName}) async {
     try {
       await FirebaseAuth.instance.currentUser!.updateDisplayName(newName);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       throw CouldNotUpdateDisplayName();
     }
   }

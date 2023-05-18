@@ -91,7 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
                         height: 24.0,
                       ),
                       const Text(
-                        "Sign up now to access all features in LivTu. It only takes a minute!",
+                        'Sign up now to access all features in LivTu. It only takes a minute!',
                         style: TextStyle(
                           fontSize: 16.0,
                           color: Colors.grey,
