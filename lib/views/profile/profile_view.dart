@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:livtu/constants/routes.dart';
 import 'package:livtu/main.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/utils/dialogs/sign_out_dialog.dart';
@@ -20,9 +21,7 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(AppLocalizations.of(context)!.profile),
-        ),
+        title: Text(AppLocalizations.of(context)!.profile),
         centerTitle: true,
       ),
       body: Center(
@@ -45,9 +44,7 @@ class ProfileView extends StatelessWidget {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
-                BlocProvider.of<AuthBloc>(context).add(
-                  const AuthChangePasswordEvent(newPassword: null),
-                );
+                Navigator.of(context).pushNamed(changePasswordRoute);
               },
               child: const Text('Change Password'),
             ),

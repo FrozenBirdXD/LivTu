@@ -1,7 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:livtu/services/auth/auth_exceptions.dart';
-import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
 
 class ChangePasswordView extends StatefulWidget {
@@ -24,166 +22,107 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) async {
-        if (state is AuthChangePasswordState) {
-          if (state.exception is WeakPasswordAuthException) {
-            await showErrorDialog(
-              context,
-              'Weak password - Please enter a stronger password.',
-            );
-          } else if (state.exception is RequiresRecentLogin) {
-            await showErrorDialog(
-              context,
-              'This operation requires you to have logged in recently. Please log in and try again.',
-            );
-          } else if (state.exception is GenericAuthException) {
-            await showErrorDialog(
-              context,
-              'Authentication error',
-            );
-          } else if (state.hasChangedPassword) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Password updated succesfully!'),
-                duration: Duration(seconds: 2),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          }
-        }
+    return GestureDetector(
+      onTap: () {
+        // Hide the keyboard when the user taps outside of the TextFields
+        FocusScope.of(context).unfocus();
       },
-      child: GestureDetector(
-        onTap: () {
-          // Hide the keyboard when the user taps outside of the TextFields
-          FocusScope.of(context).unfocus();
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Change Password'),
-            centerTitle: true,
-          ),
-          resizeToAvoidBottomInset: false,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 36.0,
-                  vertical: 48.0,
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Enter a new password to update your current one.',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.grey,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Change Password'),
+          centerTitle: true,
+        ),
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 36.0,
+                vertical: 48.0,
+              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Enter a new password to update your current one.',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    TextFormField(
+                      controller: _controller,
+                      obscureText: !_passwordVisible,
+                      enableSuggestions: false,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey[250],
+                        labelText: 'New Password',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
                         ),
-                      ),
-                      const SizedBox(
-                        height: 32.0,
-                      ),
-                      TextFormField(
-                        controller: _controller,
-                        obscureText: !_passwordVisible,
-                        enableSuggestions: false,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey[250],
-                          labelText: 'New Password',
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Theme.of(context).primaryColorDark,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _passwordVisible = !_passwordVisible;
-                              });
-                            },
-                          ),
-                          labelStyle: const TextStyle(fontSize: 16.0),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                            borderSide: BorderSide(
-                              color: Colors.grey[300]!,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                            borderSide: const BorderSide(
-                              color: Colors.teal,
-                            ),
+                        labelStyle: const TextStyle(fontSize: 16.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                            color: Colors.grey[300]!,
                           ),
                         ),
-                        onFieldSubmitted: (value) {
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                            color: Colors.teal,
+                          ),
+                        ),
+                      ),
+                      onFieldSubmitted: (value) async {
+                        // hide keyboard when user taps register or presses enter
+                        FocusScope.of(context).unfocus();
+                        updatePassword();
+                      },
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    // update password button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48.0,
+                      child: ElevatedButton(
+                        onPressed: () async {
                           // hide keyboard when user taps register or presses enter
                           FocusScope.of(context).unfocus();
-                          BlocProvider.of<AuthBloc>(context).add(
-                            AuthChangePasswordEvent(
-                                newPassword: _controller.text),
-                          );
+                          updatePassword();
                         },
-                      ),
-                      const SizedBox(
-                        height: 32.0,
-                      ),
-                      // update password button
-                      SizedBox(
-                        width: double.infinity,
-                        height: 48.0,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // hide keyboard when user taps register or presses enter
-                            FocusScope.of(context).unfocus();
-                            BlocProvider.of<AuthBloc>(context).add(
-                              AuthChangePasswordEvent(
-                                  newPassword: _controller.text),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            textStyle: const TextStyle(fontSize: 18.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                          child: const Text(
-                            'Update Password',
-                            style: TextStyle(color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          textStyle: const TextStyle(fontSize: 18.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16.0,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 48.0,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            BlocProvider.of<AuthBloc>(context).add(
-                              const AuthGoToMainEvent(),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).secondaryHeaderColor,
-                            textStyle: const TextStyle(fontSize: 18.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                          child: const Text('Go back'),
+                        child: const Text(
+                          'Update Password',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -191,5 +130,42 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         ),
       ),
     );
+  }
+
+  void updatePassword() async {
+    try {
+      await FirebaseAuth.instance.currentUser!.updatePassword(_controller.text);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password updated succesfully!'),
+          duration: Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      Navigator.of(context).pop();
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'weak-password':
+          await showErrorDialog(
+            context,
+            'Weak password - Please enter a stronger password.',
+          );
+        case 'requires-recent-login':
+          await showErrorDialog(
+            context,
+            'This operation requires you to have logged in recently. Please log in and try again.',
+          );
+        default:
+          await showErrorDialog(
+            context,
+            'Authentication error',
+          );
+      }
+    } catch (e) {
+      await showErrorDialog(
+        context,
+        'Authentication error',
+      );
+    }
   }
 }
