@@ -61,12 +61,3 @@ class AuthLoggedOutState extends AuthState with EquatableMixin {
   List<Object?> get props => [exception, isLoading];
 }
 
-class AuthChangePasswordState extends AuthState {
-  final Exception? exception;
-  final bool hasChangedPassword;
-  const AuthChangePasswordState(
-      {required bool isLoading,
-      required this.hasChangedPassword,
-      required this.exception})
-      : super(isLoading: isLoading);
-}
