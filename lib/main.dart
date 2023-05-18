@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
         routes: {
           editCalendarEventRoute: (context) => const EditEventView(),
           settingsRoute:(context) => ProfileView(),
+          changePasswordRoute:(context) => const ChangePasswordView(),
         },
         title: 'LivTu',
         theme: ThemeData(
@@ -155,8 +156,6 @@ class _HomePageState extends State<HomePage> {
           return const RegisterView();
         } else if (state is AuthForgotPasswordState) {
           return const ForgotPasswordView();
-        } else if (state is AuthChangePasswordState) {
-          return const ChangePasswordView();
         } else {
           return const Scaffold(
             body: Center(
