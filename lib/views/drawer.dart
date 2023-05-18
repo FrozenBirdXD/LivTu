@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/constants/routes.dart';
@@ -6,6 +7,10 @@ import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/utils/dialogs/sign_out_dialog.dart';
 
 Drawer getUniversalDrawer({required BuildContext context}) {
+  Random random = Random();
+  int randomNumber = 100000 + random.nextInt(999999);
+  String randomString = 'User$randomNumber';
+
   return Drawer(
     child: ListView(
       padding: const EdgeInsets.all(0),
@@ -16,19 +21,23 @@ Drawer getUniversalDrawer({required BuildContext context}) {
           ),
           child: UserAccountsDrawerHeader(
             decoration: const BoxDecoration(color: Colors.teal),
-            accountName: const Text(
-              'User 1234',
-              style: TextStyle(fontSize: 18),
+            accountName: Text(
+              AuthService.firebase().currentUser?.displayName ??
+                  randomString,
+              style: const TextStyle(fontSize: 18),
             ),
             accountEmail: Text(
               AuthService.firebase().currentUser?.email ?? 'Not registered',
             ),
-            currentAccountPictureSize: const Size.square(50),
+            currentAccountPictureSize: const Size.square(40),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.teal.shade200,
-              child: const Text(
-                "U",
-                style: TextStyle(fontSize: 30.0, color: Colors.blue),
+              backgroundColor: Colors.teal.shade100,
+              child: Text(
+                AuthService.firebase().currentUser?.displayName?[0] ?? 'U',
+                style: const TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.teal,
+                ),
               ), //Text
             ),
           ),
