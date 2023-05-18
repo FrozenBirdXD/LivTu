@@ -10,6 +10,8 @@ class EmailAlreadyInUseAuthException implements Exception {}
 
 class RequiresRecentLogin implements Exception {}
 
+class CouldNotUpdateDisplayName implements Exception {}
+
 // generic exceptions
 
 class GenericAuthException implements Exception {}
