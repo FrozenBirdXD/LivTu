@@ -16,4 +16,9 @@ class Event {
     required this.color,
     this.isAllDay = false,
   });
+
+  @override
+  String toString() {
+    return 'Title: $title, Description: $description, From: $from, To: $to, Color: $color, IsAllDay: $isAllDay';
+  }
 }

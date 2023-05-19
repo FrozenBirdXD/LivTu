@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:livtu/views/schedule/event_model.dart';
+import 'package:livtu/services/schedule/event_model.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class EventDataSource extends CalendarDataSource {

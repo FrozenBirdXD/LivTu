@@ -25,7 +25,8 @@ class _ScheduleViewState extends State<ScheduleView> {
       drawer: getUniversalDrawer(context: context),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => Navigator.of(context).pushNamed(editCalendarEventRoute),
+        onPressed: () =>
+            Navigator.of(context).pushNamed(editCalendarEventRoute),
       ),
       appBar: AppBar(
         title: const Text('My Schedule'),
@@ -79,7 +80,8 @@ class _ScheduleViewState extends State<ScheduleView> {
               key: _calendarKey,
               view: _calendarView,
               onTap: (calendarTapDetails) {
-                if (calendarTapDetails.appointments == null) return;
+                if (calendarTapDetails.appointments!.isEmpty) return;
+                print(calendarTapDetails.appointments.toString());
                 // final event = calendarTapDetails.appointments!.first;
                 //Navigator.pushNamed(context, )
               },
