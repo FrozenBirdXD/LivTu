@@ -9,6 +9,7 @@ import 'package:livtu/views/profile/change_username_view.dart';
 import 'package:livtu/views/schedule/edit_event_view.dart';
 import 'package:livtu/services/schedule/provider/event_provider.dart';
 import 'package:livtu/views/schedule/schedule_view.dart';
+import 'package:livtu/views/settings/settings_view.dart';
 import 'package:livtu/views/study_material/study_material_view.dart';
 import 'package:livtu/views/tutor/tutor_view.dart';
 import 'package:livtu/views/user_auth/forgot_password_view.dart';
@@ -22,62 +23,72 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    const MyApp(
-      locale: Locale('en'),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<LocaleProvider>(
+          create: (context) => LocaleProvider(
+            const Locale('en'),
+          ),
+        ),
+        ChangeNotifierProvider<EventProvider>(
+          create: (context) => EventProvider(),
+        ),
+      ],
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final Locale locale;
-
-  const MyApp({required this.locale, super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => EventProvider(),
-      child: MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: locale,
-        routes: {
-          editCalendarEventRoute: (context) => const EditEventView(),
-          settingsRoute: (context) => ProfileView(),
-          changePasswordRoute: (context) => const ChangePasswordView(),
-          changeUsernameRoute: (context) => const ChangeUsernameView(),
-        },
-        title: 'LivTu',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme(
-            primary: Colors.teal,
-            onPrimary: Colors.white,
-            secondary: Colors.lightBlue,
-            onSecondary: Colors.white,
-            surface: Colors.white,
-            onSurface: Colors.black,
-            background: Colors.grey.shade100,
-            error: Colors.red,
-            onError: Colors.white,
-            brightness: Brightness.light,
-            onBackground: Colors.white,
+    return Consumer<LocaleProvider>(
+      builder: (context, localeProvider, _) {
+        return MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: localeProvider.locale,
+          routes: {
+            editCalendarEventRoute: (context) => const EditEventView(),
+            settingsRoute: (context) => const SettingsView(),
+            profileRoute: (context) => ProfileView(),
+            changePasswordRoute: (context) => const ChangePasswordView(),
+            changeUsernameRoute: (context) => const ChangeUsernameView(),
+          },
+          title: 'LivTu',
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme(
+              primary: Colors.teal,
+              onPrimary: Colors.white,
+              secondary: Colors.lightBlue,
+              onSecondary: Colors.white,
+              surface: Colors.white,
+              onSurface: Colors.black,
+              background: Colors.grey.shade100,
+              error: Colors.red,
+              onError: Colors.white,
+              brightness: Brightness.light,
+              onBackground: Colors.white,
+            ),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.teal,
+              foregroundColor: Colors.white,
+            ),
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              backgroundColor: Colors.white,
+              selectedItemColor: Colors.teal,
+              unselectedItemColor: Colors.grey,
+            ),
           ),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.teal,
-            foregroundColor: Colors.white,
+          home: BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc(FirebaseAuthProvider()),
+            child: const HomePage(),
           ),
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: Colors.white,
-            selectedItemColor: Colors.teal,
-            unselectedItemColor: Colors.grey,
-          ),
-        ),
-        home: BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(FirebaseAuthProvider()),
-          child: const HomePage(),
-        ),
-      ),
+        );
+      },
     );
   }
 }
