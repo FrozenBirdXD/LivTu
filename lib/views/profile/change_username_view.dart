@@ -141,7 +141,7 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
       } catch (e) {
         await showErrorDialog(
           context,
-          e as String,
+          'Could not update username, please try again',
         );
       }
     }

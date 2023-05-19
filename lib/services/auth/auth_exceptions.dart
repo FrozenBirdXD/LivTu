@@ -8,9 +8,9 @@ class WeakPasswordAuthException implements Exception {}
 
 class EmailAlreadyInUseAuthException implements Exception {}
 
-class RequiresRecentLogin implements Exception {}
+class RequiresRecentLoginAuthException implements Exception {}
 
-class CouldNotUpdateDisplayName implements Exception {}
+class CouldNotUpdateDisplayNameAuthException implements Exception {}
 
 // generic exceptions
 

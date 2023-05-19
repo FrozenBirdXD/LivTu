@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:livtu/services/auth/auth_exceptions.dart';
 import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
 
@@ -57,6 +57,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       height: 32.0,
                     ),
                     TextFormField(
+                      validator: (password) =>
+                          password != null && password.isEmpty
+                              ? 'Password cannot be empty'
+                              : null,
                       controller: _controller,
                       obscureText: !_passwordVisible,
                       enableSuggestions: false,
@@ -134,39 +138,35 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   }
 
   void updatePassword() async {
-    try {
-      await AuthService.firebase().changePassword(newPassword: _controller.text);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Password updated succesfully!'),
-          duration: Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-      Navigator.of(context).pop();
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'weak-password':
-          await showErrorDialog(
-            context,
-            'Weak password - Please enter a stronger password.',
-          );
-        case 'requires-recent-login':
-          await showErrorDialog(
-            context,
-            'This operation requires you to have logged in recently. Please log in and try again.',
-          );
-        default:
-          await showErrorDialog(
-            context,
-            'Authentication error',
-          );
+    final isValid = _formKey.currentState!.validate();
+    if (isValid) {
+      try {
+        await AuthService.firebase()
+            .changePassword(newPassword: _controller.text);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Password updated succesfully!'),
+            duration: Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+        Navigator.of(context).pop();
+      } on WeakPasswordAuthException {
+        await showErrorDialog(
+          context,
+          'Weak password - Please enter a stronger password.',
+        );
+      } on RequiresRecentLoginAuthException {
+        await showErrorDialog(
+          context,
+          'This operation requires you to have logged in recently. Please log in and try again.',
+        );
+      } catch (e) {
+        await showErrorDialog(
+          context,
+          'Could not update password, please try again',
+        );
       }
-    } catch (e) {
-      await showErrorDialog(
-        context,
-        e as String,
-      );
     }
   }
 }

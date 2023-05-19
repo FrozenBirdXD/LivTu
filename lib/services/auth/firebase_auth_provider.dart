@@ -133,7 +133,7 @@ class FirebaseAuthProvider implements AuthProvider {
         case 'weak-password':
           throw WeakPasswordAuthException();
         case 'requires-recent-login':
-          throw RequiresRecentLogin();
+          throw RequiresRecentLoginAuthException();
         default:
           throw GenericAuthException();
       }
@@ -147,7 +147,7 @@ class FirebaseAuthProvider implements AuthProvider {
     try {
       await FirebaseAuth.instance.currentUser!.updateDisplayName(newName);
     } on FirebaseAuthException {
-      throw CouldNotUpdateDisplayName();
+      throw CouldNotUpdateDisplayNameAuthException();
     }
   }
 }
