@@ -47,6 +47,7 @@ Drawer getUniversalDrawer({required BuildContext context}) {
           title: const Text(' My Profile'),
           onTap: () {
             Navigator.pop(context);
+            Navigator.of(context).pushNamed(profileRoute);
           },
         ),
         ListTile(
