@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/utils/dialogs/generic_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> showErrorDialog(
   BuildContext context,
@@ -7,7 +8,7 @@ Future<void> showErrorDialog(
 ) {
   return showGenericDialog<void>(
     context: context,
-    title: 'Oh no, an error has occurred!',
+    title: AppLocalizations.of(context)!.ohNoError,
     content: text,
     optionBuilder: () => {
       'OK': null,

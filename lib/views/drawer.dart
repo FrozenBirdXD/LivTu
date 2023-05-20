@@ -5,6 +5,7 @@ import 'package:livtu/constants/routes.dart';
 import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/utils/dialogs/sign_out_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Drawer getUniversalDrawer({required BuildContext context}) {
   Random random = Random();
@@ -27,7 +28,7 @@ Drawer getUniversalDrawer({required BuildContext context}) {
               style: const TextStyle(fontSize: 18),
             ),
             accountEmail: Text(
-              AuthService.firebase().currentUser?.email ?? 'Not registered',
+              AuthService.firebase().currentUser?.email ?? AppLocalizations.of(context)!.notRegistered,
             ),
             currentAccountPictureSize: const Size.square(40),
             currentAccountPicture: CircleAvatar(
@@ -44,7 +45,7 @@ Drawer getUniversalDrawer({required BuildContext context}) {
         ),
         ListTile(
           leading: const Icon(Icons.person),
-          title: const Text(' My Profile'),
+          title: Text(AppLocalizations.of(context)!.profile),
           onTap: () {
             Navigator.pop(context);
             Navigator.of(context).pushNamed(profileRoute);
@@ -52,28 +53,28 @@ Drawer getUniversalDrawer({required BuildContext context}) {
         ),
         ListTile(
           leading: const Icon(Icons.monetization_on),
-          title: const Text(' Payments'),
+          title: Text(AppLocalizations.of(context)!.purchases),
           onTap: () {
             Navigator.pop(context);
           },
         ),
         ListTile(
           leading: const Icon(Icons.badge_outlined),
-          title: const Text(' Become Tutor'),
+          title: Text(AppLocalizations.of(context)!.becomeTutor),
           onTap: () {
             Navigator.pop(context);
           },
         ),
         ListTile(
           leading: const Icon(Icons.help_outline),
-          title: const Text(' Help Center'),
+          title: Text(AppLocalizations.of(context)!.support),
           onTap: () {
             Navigator.pop(context);
           },
         ),
         ListTile(
           leading: const Icon(Icons.settings),
-          title: const Text(' Settings'),
+          title: Text(AppLocalizations.of(context)!.settings),
           onTap: () {
             Navigator.pop(context);
             Navigator.of(context).pushNamed(settingsRoute);
@@ -81,7 +82,7 @@ Drawer getUniversalDrawer({required BuildContext context}) {
         ),
         ListTile(
           leading: const Icon(Icons.logout),
-          title: const Text(' Log Out'),
+          title: Text(AppLocalizations.of(context)!.signOut),
           onTap: () async {
             final logout = await showSignOutDialog(context);
             if (logout) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/views/drawer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorView extends StatefulWidget {
   const TutorView({super.key});
@@ -14,11 +15,11 @@ class _TutorViewState extends State<TutorView> {
     return Scaffold(
       drawer: getUniversalDrawer(context: context),
       appBar: AppBar(
-        title: const Text('My Tutor'),
+        title: Text(AppLocalizations.of(context)!.myTutor),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text('Tutor'),
+      body: Center(
+        child: Text(AppLocalizations.of(context)!.tutor),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/views/drawer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StudyMaterialView extends StatefulWidget {
   const StudyMaterialView({super.key});
@@ -14,11 +15,11 @@ class _StudyMaterialViewState extends State<StudyMaterialView> {
     return Scaffold(
       drawer: getUniversalDrawer(context: context),
       appBar: AppBar(
-        title: const Text('Study Material'),
+        title: Text(AppLocalizations.of(context)!.studyMaterial),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text('Study Material'),
+      body: Center(
+        child: Text(AppLocalizations.of(context)!.studyMaterial),
       ),
     );
   }

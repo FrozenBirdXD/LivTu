@@ -1,9 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/services/auth/auth_provider.dart';
 import 'package:livtu/services/auth/auth_user.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -115,10 +116,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     // login event
     on<AuthLoginEvent>((event, emit) async {
       emit(
-        const AuthLoggedOutState(
+        AuthLoggedOutState(
             exception: null,
             isLoading: true,
-            loadingText: 'Logging you in securely. This may take a moment.'),
+            loadingText:
+                AppLocalizations.of(event.context)!.loginLoadingDialog),
       );
       final email = event.email;
       final password = event.password;

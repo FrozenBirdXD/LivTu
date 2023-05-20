@@ -5,6 +5,7 @@ import 'package:livtu/services/schedule/provider/event_data_source.dart';
 import 'package:livtu/services/schedule/provider/event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScheduleView extends StatefulWidget {
   const ScheduleView({super.key});
@@ -29,7 +30,7 @@ class _ScheduleViewState extends State<ScheduleView> {
             Navigator.of(context).pushNamed(editCalendarEventRoute),
       ),
       appBar: AppBar(
-        title: const Text('My Schedule'),
+        title: Text(AppLocalizations.of(context)!.mySchedule),
         centerTitle: true,
       ),
       body: Column(
@@ -44,7 +45,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                     _calendarKey = UniqueKey();
                   });
                 },
-                child: const Text('Day'),
+                child: Text(AppLocalizations.of(context)!.day),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -53,7 +54,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                     _calendarKey = UniqueKey();
                   });
                 },
-                child: const Text('Week'),
+                child: Text(AppLocalizations.of(context)!.week),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -62,7 +63,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                     _calendarKey = UniqueKey();
                   });
                 },
-                child: const Text('Month'),
+                child: Text(AppLocalizations.of(context)!.month),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -71,7 +72,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                     _calendarKey = UniqueKey();
                   });
                 },
-                child: const Text('Schedule'),
+                child: Text(AppLocalizations.of(context)!.schedule),
               ),
             ],
           ),

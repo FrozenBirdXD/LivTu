@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/services/auth/auth_exceptions.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
 import 'package:livtu/utils/dialogs/reset_password_email_sent_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -26,13 +29,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           }
           if (state.exception is InvalidEmailAuthException) {
             await showErrorDialog(
-                context, 'Invalid email - Please enter a valid email address.');
+                context, AppLocalizations.of(context)!.invalidEmailAuthExceptionPrompt);
           } else if (state.exception is UserNotFoundAuthException) {
             await showErrorDialog(context,
-                'User not found - Please check if the email is correct or register a new account.');
+                AppLocalizations.of(context)!.userNotFoundAuthExceptionPrompt);
           } else if (state.exception != null) {
             await showErrorDialog(context,
-                'We could no process your request. Please try again in a moment.');
+                AppLocalizations.of(context)!.notProcessedTryAgainPrompt);
           }
         }
       },
@@ -53,9 +56,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Forgot Password? Don't Worry!",
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.forgotPasswordDontWorry,
+                      style: const TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -64,9 +67,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     const SizedBox(
                       height: 24.0,
                     ),
-                    const Text(
-                      'Simply enter your email address and follow the directions in the email.',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.forgotPasswordInstructions,
+                      style: const TextStyle(
                         fontSize: 16.0,
                         color: Colors.grey,
                       ),
@@ -83,7 +86,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.grey[250],
-                        labelText: 'Email',
+                        labelText: AppLocalizations.of(context)!.email,
                         labelStyle: const TextStyle(fontSize: 16.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -123,9 +126,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        child: const Text(
-                          'Send password reset link',
-                          style: TextStyle(
+                        child: Text(
+                          AppLocalizations.of(context)!.sendPasswordResetLink,
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -150,7 +153,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        child: const Text('Go back to login page'),
+                        child: Text(AppLocalizations.of(context)!.goBackToLogin),
                       ),
                     ),
                   ],

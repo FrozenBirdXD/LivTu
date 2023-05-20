@@ -10,7 +10,6 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +21,9 @@ class _ProfileViewState extends State<ProfileView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Profile Options',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.profileOptions,
+              style: const TextStyle(
                 fontSize: 24,
               ),
             ),
@@ -35,14 +34,14 @@ class _ProfileViewState extends State<ProfileView> {
               onPressed: () {
                 Navigator.of(context).pushNamed(changeUsernameRoute);
               },
-              child: const Text('Change Username'),
+              child: Text(AppLocalizations.of(context)!.changeUsername),
             ),
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(changePasswordRoute);
               },
-              child: const Text('Change Password'),
+              child: Text(AppLocalizations.of(context)!.changePassword),
             ),
             const SizedBox(
               height: 30,
@@ -53,6 +52,3 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 }
-
-
-

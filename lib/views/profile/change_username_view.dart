@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangeUsernameView extends StatefulWidget {
   const ChangeUsernameView({super.key});
@@ -33,7 +34,7 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Change Username'),
+          title: Text(AppLocalizations.of(context)!.updateUsername),
           centerTitle: true,
         ),
         resizeToAvoidBottomInset: true,
@@ -49,9 +50,9 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Enter a new Username to update your current one.',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.enterNewUsernamePrompt,
+                      style: const TextStyle(
                         fontSize: 16.0,
                         color: Colors.grey,
                       ),
@@ -61,14 +62,14 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
                     ),
                     TextFormField(
                       validator: (name) => name != null && name.isEmpty
-                          ? 'Username cannot be empty'
+                          ? AppLocalizations.of(context)!.usernameCannotBeEmpty
                           : null,
                       controller: _controller,
                       enableSuggestions: false,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.grey[250],
-                        labelText: 'New Username',
+                        labelText: AppLocalizations.of(context)!.newUsername,
                         labelStyle: const TextStyle(fontSize: 16.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -109,9 +110,9 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        child: const Text(
-                          'Update Username',
-                          style: TextStyle(color: Colors.white),
+                        child: Text(
+                          AppLocalizations.of(context)!.updateUsername,
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -131,9 +132,10 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
       try {
         AuthService.firebase().setDisplayName(newName: _controller.text);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Username updated succesfully!'),
-            duration: Duration(seconds: 2),
+          SnackBar(
+            content:
+                Text(AppLocalizations.of(context)!.usernameUpdatedSuccessful),
+            duration: const Duration(seconds: 2),
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -141,7 +143,7 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
       } catch (e) {
         await showErrorDialog(
           context,
-          'Could not update username, please try again',
+          AppLocalizations.of(context)!.couldNotUpdateUsernameExceptionPrompt,
         );
       }
     }

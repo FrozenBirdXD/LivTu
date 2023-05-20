@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -21,16 +22,16 @@ class _SettingsViewState extends State<SettingsView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.of(context)!.settings),
         centerTitle: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Language',
-              style: TextStyle(fontSize: 20),
+            Text(
+              AppLocalizations.of(context)!.language,
+              style: const TextStyle(fontSize: 20),
             ),
             DropdownButton<Locale>(
               iconSize: 30,

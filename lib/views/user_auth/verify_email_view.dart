@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VerifyEmailView extends StatefulWidget {
   const VerifyEmailView({super.key});
@@ -24,9 +25,9 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Verify your email address',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.verifyYourEmail,
+                  style: const TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -35,9 +36,9 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                 const SizedBox(
                   height: 24.0,
                 ),
-                const Text(
-                  "We've sent you a verification email. Please open it to verify your account.",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.verificationEmailInstructions,
+                  style: const TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey,
                   ),
@@ -45,9 +46,9 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                 const SizedBox(
                   height: 24.0,
                 ),
-                const Text(
-                  "If you haven't received a verification yet, press the button below:",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.gotNoVerificationEmail,
+                  style: const TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey,
                   ),
@@ -71,9 +72,9 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),
-                    child: const Text(
-                      'Resend verification email',
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      AppLocalizations.of(context)!.resendVerificationEmail,
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
@@ -96,7 +97,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),
-                    child: const Text('Go back to login page'),
+                    child: Text(AppLocalizations.of(context)!.goBackToLogin),
                   ),
                 ),
               ],

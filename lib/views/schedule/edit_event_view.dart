@@ -3,6 +3,7 @@ import 'package:livtu/utils/conversions/event_model_conversions.dart';
 import 'package:livtu/services/schedule/event_model.dart';
 import 'package:livtu/services/schedule/provider/event_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditEventView extends StatefulWidget {
   final Event? event;
@@ -47,13 +48,13 @@ class _EditEventViewState extends State<EditEventView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Edit Event'),
+          title: Text(AppLocalizations.of(context)!.editEvent),
           centerTitle: true,
           actions: [
             ElevatedButton.icon(
               onPressed: saveForm,
               icon: const Icon(Icons.done),
-              label: const Text('Save'),
+              label: Text(AppLocalizations.of(context)!.save),
             ),
           ],
         ),
@@ -90,7 +91,7 @@ class _EditEventViewState extends State<EditEventView> {
         title: titleController.text,
         from: fromDate,
         to: toDate,
-        description: 'Description',
+        description: AppLocalizations.of(context)!.description,
         color: Colors.pink,
         isAllDay: false,
       );
@@ -107,12 +108,13 @@ class _EditEventViewState extends State<EditEventView> {
       style: const TextStyle(fontSize: 24),
       controller: titleController,
       onFieldSubmitted: (_) => saveForm(),
-      validator: (title) =>
-          title != null && title.isEmpty ? 'Title cannot be empty' : null,
+      validator: (title) => title != null && title.isEmpty
+          ? AppLocalizations.of(context)!.titleCannotBeEmpty
+          : null,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey[250],
-        labelText: 'Title',
+        labelText: AppLocalizations.of(context)!.title,
         labelStyle: const TextStyle(fontSize: 24.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
@@ -141,7 +143,7 @@ class _EditEventViewState extends State<EditEventView> {
 
   Widget buildTo() {
     return buildHeader(
-      header: 'TO',
+      header: AppLocalizations.of(context)!.tO,
       child: Row(
         children: [
           Expanded(
@@ -163,7 +165,7 @@ class _EditEventViewState extends State<EditEventView> {
 
   Widget buildFrom() {
     return buildHeader(
-      header: 'FROM',
+      header: AppLocalizations.of(context)!.fROM,
       child: Row(
         children: [
           Expanded(

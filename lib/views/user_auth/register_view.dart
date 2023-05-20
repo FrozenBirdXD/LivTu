@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/services/auth/auth_exceptions.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -40,22 +41,22 @@ class _RegisterViewState extends State<RegisterView> {
           if (state.exception is WeakPasswordAuthException) {
             await showErrorDialog(
               context,
-              'Weak password - Please enter a stronger password.',
+              AppLocalizations.of(context)!.weakPasswordAuthExceptionPrompt,
             );
           } else if (state.exception is EmailAlreadyInUseAuthException) {
             await showErrorDialog(
               context,
-              'Email address already in use - Please sign in.',
+              AppLocalizations.of(context)!.emailAlreadyInUseAuthExceptionPrompt,
             );
           } else if (state.exception is InvalidEmailAuthException) {
             await showErrorDialog(
               context,
-              'Invalid email - Please enter a valid email address.',
+              AppLocalizations.of(context)!.invalidEmailAuthExceptionPrompt,
             );
           } else if (state.exception is GenericAuthException) {
             await showErrorDialog(
               context,
-              'Authentication error',
+              AppLocalizations.of(context)!.authenticationError,
             );
           }
         }
@@ -79,9 +80,9 @@ class _RegisterViewState extends State<RegisterView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Join Us!',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!.joinUs,
+                        style: const TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -90,9 +91,9 @@ class _RegisterViewState extends State<RegisterView> {
                       const SizedBox(
                         height: 24.0,
                       ),
-                      const Text(
-                        'Sign up now to access all features in LivTu. It only takes a minute!',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!.signUpPrompt,
+                        style: const TextStyle(
                           fontSize: 16.0,
                           color: Colors.grey,
                         ),
@@ -106,7 +107,7 @@ class _RegisterViewState extends State<RegisterView> {
                         keyboardType: TextInputType.emailAddress,
                         enableSuggestions: false,
                         decoration: InputDecoration(
-                          labelText: 'Email',
+                          labelText: AppLocalizations.of(context)!.email,
                           labelStyle: const TextStyle(fontSize: 16.0),
                           filled: true,
                           fillColor: Colors.grey[250],
@@ -137,7 +138,7 @@ class _RegisterViewState extends State<RegisterView> {
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          labelText: 'Password',
+                          labelText: AppLocalizations.of(context)!.password,
                           labelStyle: const TextStyle(fontSize: 16.0),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -189,9 +190,9 @@ class _RegisterViewState extends State<RegisterView> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: const Text(
-                            'Sign Up',
-                            style: TextStyle(color: Colors.white),
+                          child: Text(
+                            AppLocalizations.of(context)!.signUp,
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
@@ -214,7 +215,7 @@ class _RegisterViewState extends State<RegisterView> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: const Text('Already registered? Login here!'),
+                          child: Text(AppLocalizations.of(context)!.alreadyRegisteredGoToLogin),
                         ),
                       ),
                     ],

@@ -12,9 +12,11 @@ class AuthInitEvent extends AuthEvent {
 class AuthLoginEvent extends AuthEvent {
   final String email;
   final String password;
+  final BuildContext context;
   const AuthLoginEvent(
     this.email,
     this.password,
+    this.context
   );
 }
 

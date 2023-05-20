@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
         if (state.isLoading) {
           LoadingScreen().show(
             context: context,
-            text: state.loadingText ?? "In a moment, we'll be ready.",
+            text: state.loadingText ?? AppLocalizations.of(context)!.inAMomentReadyPrompt,
           );
         } else {
           LoadingScreen().hide();
@@ -141,22 +141,22 @@ class _HomePageState extends State<HomePage> {
                   _currentIndex = index;
                 });
               },
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Overview',
+                  icon: const Icon(Icons.home),
+                  label: AppLocalizations.of(context)!.overview,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.calendar_month),
-                  label: 'Schedule',
+                  icon: const Icon(Icons.calendar_month),
+                  label: AppLocalizations.of(context)!.schedule,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.people),
-                  label: 'Tutor',
+                  icon: const Icon(Icons.people),
+                  label: AppLocalizations.of(context)!.tutor,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.menu_book_rounded),
-                  label: 'Study Material',
+                  icon: const Icon(Icons.menu_book_rounded),
+                  label: AppLocalizations.of(context)!.studyMaterial,
                 ),
               ],
             ),

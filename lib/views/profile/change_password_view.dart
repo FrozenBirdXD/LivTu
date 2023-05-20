@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:livtu/services/auth/auth_exceptions.dart';
 import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangePasswordView extends StatefulWidget {
   const ChangePasswordView({super.key});
@@ -30,7 +31,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Change Password'),
+          title: Text(AppLocalizations.of(context)!.changePassword),
           centerTitle: true,
         ),
         resizeToAvoidBottomInset: true,
@@ -46,9 +47,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Enter a new password to update your current one.',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.enterNewPasswordPrompt,
+                      style: const TextStyle(
                         fontSize: 16.0,
                         color: Colors.grey,
                       ),
@@ -57,17 +58,17 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       height: 32.0,
                     ),
                     TextFormField(
-                      validator: (password) =>
-                          password != null && password.isEmpty
-                              ? 'Password cannot be empty'
-                              : null,
+                      validator: (password) => password != null &&
+                              password.isEmpty
+                          ? AppLocalizations.of(context)!.passwordCannotBeEmpty
+                          : null,
                       controller: _controller,
                       obscureText: !_passwordVisible,
                       enableSuggestions: false,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.grey[250],
-                        labelText: 'New Password',
+                        labelText: AppLocalizations.of(context)!.newPassword,
                         suffixIcon: IconButton(
                           icon: Icon(
                             _passwordVisible
@@ -121,9 +122,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        child: const Text(
-                          'Update Password',
-                          style: TextStyle(color: Colors.white),
+                        child: Text(
+                          AppLocalizations.of(context)!.updatePassword,
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -144,9 +145,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         await AuthService.firebase()
             .changePassword(newPassword: _controller.text);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Password updated succesfully!'),
-            duration: Duration(seconds: 2),
+          SnackBar(
+            content:
+                Text(AppLocalizations.of(context)!.passwordUpdateSuccessful),
+            duration: const Duration(seconds: 2),
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -154,17 +156,17 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       } on WeakPasswordAuthException {
         await showErrorDialog(
           context,
-          'Weak password - Please enter a stronger password.',
+          AppLocalizations.of(context)!.weakPasswordAuthExceptionPrompt,
         );
       } on RequiresRecentLoginAuthException {
         await showErrorDialog(
           context,
-          'This operation requires you to have logged in recently. Please log in and try again.',
+          AppLocalizations.of(context)!.requiresRecentLoginAuthExceptionPrompt,
         );
       } catch (e) {
         await showErrorDialog(
           context,
-          'Could not update password, please try again',
+          AppLocalizations.of(context)!.couldNotUpdatePasswordExceptionPrompt,
         );
       }
     }

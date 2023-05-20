@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/services/auth/auth_exceptions.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -41,22 +42,22 @@ class _LoginViewState extends State<LoginView> {
           if (state.exception is UserNotFoundAuthException) {
             await showErrorDialog(
               context,
-              'User not found - Please sign in or register a new account.',
+              AppLocalizations.of(context)!.userNotFoundAuthExceptionPrompt,
             );
           } else if (state.exception is WrongPasswordAuthException) {
             await showErrorDialog(
               context,
-              'Incorrect credentials - Please try again.',
+              AppLocalizations.of(context)!.wrongPasswordAuthExceptionPrompt,
             );
           } else if (state.exception is InvalidEmailAuthException) {
             await showErrorDialog(
               context,
-              'Invalid email - Please enter a valid email address.',
+              AppLocalizations.of(context)!.invalidEmailAuthExceptionPrompt,
             );
           } else if (state.exception is GenericAuthException) {
             await showErrorDialog(
               context,
-              'Authentication error - Please try again.',
+              AppLocalizations.of(context)!.authenticationError,
             );
           }
         }
@@ -80,9 +81,9 @@ class _LoginViewState extends State<LoginView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Welcome back!',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!.welcomeBack,
+                        style: const TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -91,9 +92,9 @@ class _LoginViewState extends State<LoginView> {
                       const SizedBox(
                         height: 24.0,
                       ),
-                      const Text(
-                        'Please log in to your acount to access your LivTu Profile!',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!.logInToLivTuPrompt,
+                        style: const TextStyle(
                           fontSize: 16.0,
                           color: Colors.grey,
                         ),
@@ -108,7 +109,7 @@ class _LoginViewState extends State<LoginView> {
                         keyboardType: TextInputType.emailAddress,
                         enableSuggestions: false,
                         decoration: InputDecoration(
-                          labelText: 'Email',
+                          labelText: AppLocalizations.of(context)!.email,
                           labelStyle: const TextStyle(fontSize: 16.0),
                           filled: true,
                           fillColor: Colors.grey[250],
@@ -139,7 +140,7 @@ class _LoginViewState extends State<LoginView> {
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          labelText: 'Password',
+                          labelText: AppLocalizations.of(context)!.password,
                           labelStyle: const TextStyle(fontSize: 16.0),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -191,9 +192,9 @@ class _LoginViewState extends State<LoginView> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: const Text(
-                            'Log In',
-                            style: TextStyle(
+                          child: Text(
+                            AppLocalizations.of(context)!.logIn,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -218,7 +219,7 @@ class _LoginViewState extends State<LoginView> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: const Text('Forgot Password?'),
+                          child: Text(AppLocalizations.of(context)!.forgotPassword),
                         ),
                       ),
                       const SizedBox(
@@ -241,7 +242,7 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                           child:
-                              const Text('Not registered yet? Sign up here!'),
+                              Text(AppLocalizations.of(context)!.notRegisteredGoToSignUp),
                         ),
                       ),
                     ],
@@ -265,6 +266,7 @@ class _LoginViewState extends State<LoginView> {
         AuthLoginEvent(
           _email.text,
           _password.text,
+          context,
         ),
       );
     }
