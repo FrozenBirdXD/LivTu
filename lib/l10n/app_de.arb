@@ -1,3 +1,90 @@
 {
-    "profile": "Profil"
+    "profile": "Profil",
+    "loginLoadingDialog": "Wir loggen dich sicher ein. Dies kann einen Moment dauern.",
+    "ohNoError": "Ups, ein Fehler ist aufgetreten!",
+    "passwordResetEmailSent": "Zurücksetzungs-E-Mail versendet",
+    "passwordResetInstructions": "Eine E-Mail wurde an deine Adresse gesendet. Befolge die Anweisungen in der E-Mail, um dein Passwort zurückzusetzen.",
+    "signOut": "Abmelden",
+    "signOutConformation": "Bist du dir sicher, dass du dich abmelden möchtest?",
+    "cancel": "Abbrechen",
+    "overview": "Übersicht",
+
+    "password": "Passwort",
+    "changePassword": "Passwort ändern",
+    "enterNewPasswordPrompt": "Gib ein neues Passwort ein, um dein aktuelles Passwort zu ändern.",
+    "passwordCannotBeEmpty": "Passwort kann nicht leer sein",
+    "newPassword": "Neues Passwort",
+    "updatePassword": "Passwort ändern",
+    "passwordUpdateSuccessful": "Passwort erfolgreich geändert!",
+    "weakPasswordAuthExceptionPrompt": "Schwaches Passwort - Bitte gib ein stärkeres Passwort ein.",
+    "requiresRecentLoginAuthExceptionPrompt": "Für diese Aktion musst du dich kürzlich angemeldet haben. Bitte logge dich ein und versuche es erneut.",
+    "couldNotUpdatePasswordExceptionPrompt": "Passwort konnte nicht geändert werden. Bitte versuche es erneut.",
+
+    "changeUsername": "Benuternamen ändern",
+    "enterNewUsernamePrompt": "Gib ein neuen Benuternamen ein, um dein aktuellen zu ändern.",
+    "usernameCannotBeEmpty": "Benutername kann nicht leer sein",
+    "newUsername": "Neuer Benutername",
+    "updateUsername": "Benuternamen ändern",
+    "usernameUpdatedSuccessful": "Benuternamen erfolgreich geändert!",
+    "couldNotUpdateUsernameExceptionPrompt": "Benutername konnte nicht geändert werden. Bitte versuche es erneut.",
+
+    "profileOptions": "Profil Optionen",
+    "editEvent": "Termin bearbeiten",
+    "save": "speichern",
+    "description": "Beschreibung",
+    "titleCannotBeEmpty": "Titel kann nicht leer sein",
+    "title": "Titel",
+    "tO": "BIS",
+    "fROM": "VON",
+
+    "schedule": "Termine",
+    "mySchedule": "Meine Termine",
+    "day": "Tag",
+    "week": "Woche",
+    "month": "Monat",
+    "schedule": "Termine",
+
+    "settings": "Einstellungen",
+    "language": "Sprache",
+
+    "studyMaterial": "Lernmaterial",
+
+    "tutor": "Tutor",
+    "tutors": "Tutoren",
+    "myTutor": "Mein Tutor",
+
+    "notRegistered": "Nicht registriert",
+    "invalidEmailAuthExceptionPrompt": "Ungültige E-Mail - Bitte gib eine gültige E-Mail-Adresse ein.",
+    "userNotFoundAuthExceptionPrompt": "Benutzer nicht gefunden - Bitte überprüfe, ob die E-Mail korrekt ist oder registriere ein neues Konto.",
+    "notProcessedTryAgainPrompt": "Wir konnten deine Anfrage nicht verarbeiten. Bitte versuche es in einem Moment erneut.",
+    "forgotPassword": "Passwort vergessen",
+    "forgotPasswordDontWorry": "Passwort vergessen? Keine Sorge!",
+    "forgotPasswordInstructions": "Gib einfach deine E-Mail-Adresse ein und folge den Anweisungen in der E-Mail.",
+    "email": "Email",
+    "sendPasswordResetLink": "Sende Zurücksetzungslink",
+    "goBackToLogin": "Zurück zur Login Seite",
+
+    "emailAlreadyInUseAuthExceptionPrompt": "E-Mail-Adresse bereits in Verwendung - Bitte melde dich an.",
+    "authenticationError": "Authentifizierungsfehler - Bitte versuche es erneut.",
+    "joinUs": "Werde Mitglied!",
+    "signUpPrompt": "Registriere dich jetzt, um alle Funktionen in LivTu nutzen zu können. Es dauert nur ne Minute!",
+    "signUp": "Registrieren",
+    "alreadyRegisteredGoToLogin": "Schon registriert? Hier anmelden!",
+
+    "logIn": "Anmelden",
+    "wrongPasswordAuthExceptionPrompt": "Falsche Anmeldeinformationen - Bitte versuche es erneut.",
+    "welcomeBack": "Willkommen zurück!",
+    "logInToLivTuPrompt": "Bitte melde dich mit deinem Konto an, um auf dein LivTu-Profil zuzugreifen!",
+    "notRegisteredGoToSignUp": "Kein Konto? Registriere dich hier!",
+
+    "verifyYourEmail": "Verifiziere deine Email Adresse",
+    "verificationEmailInstructions": "Wir haben dir eine Bestätigungs-E-Mail gesendet. Bitte öffne diese, um dein Konto zu verifizieren.",
+    "gotNoVerificationEmail": "Wenn du noch keine Bestätigungs-E-Mail erhalten hast, klicke bitte auf den folgenden Button:",
+    "resendVerificationEmail": "Bestätigungs-E-Mail erneut senden", 
+
+    "purchases": "Käufe",
+    "becomeTutor": "Werde Tutor",
+    "support": "Support",
+
+    "inAMomentReadyPrompt": "In einem Moment sind wir bereit."
 }
