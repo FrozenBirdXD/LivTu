@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/constants/routes.dart';
@@ -8,9 +7,6 @@ import 'package:livtu/utils/dialogs/sign_out_dialog.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Drawer getUniversalDrawer({required BuildContext context}) {
-  Random random = Random();
-  int randomNumber = 100000 + random.nextInt(999999);
-  String randomString = 'User$randomNumber';
 
   return Drawer(
     child: ListView(
@@ -24,7 +20,7 @@ Drawer getUniversalDrawer({required BuildContext context}) {
             decoration: const BoxDecoration(color: Colors.teal),
             accountName: Text(
               AuthService.firebase().currentUser?.displayName ??
-                  randomString,
+                  'User${AuthService.firebase().currentUser!.id}',
               style: const TextStyle(fontSize: 18),
             ),
             accountEmail: Text(
