@@ -3,7 +3,7 @@ import 'package:livtu/constants/routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileView extends StatefulWidget {
-  ProfileView({super.key});
+  const ProfileView({super.key});
 
   @override
   State<ProfileView> createState() => _ProfileViewState();

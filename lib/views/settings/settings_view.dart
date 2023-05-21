@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:livtu/services/settings/language_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -57,15 +58,3 @@ class _SettingsViewState extends State<SettingsView> {
   }
 }
 
-class LocaleProvider with ChangeNotifier {
-  Locale _locale;
-
-  LocaleProvider(this._locale);
-
-  Locale get locale => _locale;
-
-  void changeLocale(Locale locale) {
-    _locale = locale;
-    notifyListeners();
-  }
-}

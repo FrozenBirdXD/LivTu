@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/constants/routes.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/services/auth/firebase_auth_provider.dart';
+import 'package:livtu/services/settings/language_provider.dart';
 import 'package:livtu/utils/loading/loading_screen.dart';
 import 'package:livtu/views/overview/overview.dart';
 import 'package:livtu/views/profile/change_username_view.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
           routes: {
             editCalendarEventRoute: (context) => const EditEventView(),
             settingsRoute: (context) => const SettingsView(),
-            profileRoute: (context) => ProfileView(),
+            profileRoute: (context) => const ProfileView(),
             changePasswordRoute: (context) => const ChangePasswordView(),
             changeUsernameRoute: (context) => const ChangeUsernameView(),
           },

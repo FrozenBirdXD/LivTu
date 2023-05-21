@@ -130,7 +130,7 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
     final isValid = _formKey.currentState!.validate();
     if (isValid) {
       try {
-        AuthService.firebase().setDisplayName(newName: _controller.text);
+        await AuthService.firebase().setDisplayName(newName: _controller.text);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content:
@@ -140,7 +140,7 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
           ),
         );
         Navigator.of(context).pop();
-      } catch (e) {
+      } on Exception {
         await showErrorDialog(
           context,
           AppLocalizations.of(context)!.couldNotUpdateUsernameExceptionPrompt,
