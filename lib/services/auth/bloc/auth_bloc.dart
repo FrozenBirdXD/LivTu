@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/services/auth/auth_provider.dart';
 import 'package:livtu/services/auth/auth_user.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:livtu/services/profile/global_user_service.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -57,6 +58,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           email: email,
           password: password,
         );
+        GlobalUserService().createNewUser(userId: provider.currentUser!.id);
         await provider.sendEmailVerification();
         emit(const AuthNeedVerificationState(isLoading: false));
       } on Exception catch (e) {
