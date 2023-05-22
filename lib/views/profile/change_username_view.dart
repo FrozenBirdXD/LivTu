@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livtu/services/auth/auth_service.dart';
+import 'package:livtu/services/profile/global_user_service.dart';
 import 'package:livtu/utils/dialogs/error_dialog.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -130,7 +131,11 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
     final isValid = _formKey.currentState!.validate();
     if (isValid) {
       try {
-        await AuthService.firebase().setDisplayName(newName: _controller.text);
+        String id = await GlobalUserService().getDocumentId(userId: AuthService.firebase().currentUser!.id);
+        await GlobalUserService().updateDisplayName(
+          documentId: id,
+          name: _controller.text,
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content:
