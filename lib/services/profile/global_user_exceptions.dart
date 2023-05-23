@@ -11,3 +11,6 @@ class CloudNotUpdateIconURL implements GlobalUserException {}
 class CouldNotUpdateDescription implements GlobalUserException {}
 
 class GlobalUserNotFound implements GlobalUserException {}
+
+
+class CouldNotGetDisplayName implements GlobalUserException {}
