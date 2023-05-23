@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:livtu/constants/routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:livtu/services/auth/auth_service.dart';
+import 'package:livtu/services/profile/global_user_helper.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -39,13 +40,24 @@ class _ProfileViewState extends State<ProfileView> {
       ),
       child: Column(
         children: [
-          Text(
-            AuthService.firebase().currentUser?.displayName ??
-                'User${AuthService.firebase().currentUser!.id}',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 28.0,
-            ),
+          FutureBuilder<String>(
+            future: getUserName(context),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: $snapshot.error');
+              } else {
+                String displayName = snapshot.data ?? 'username not set';
+                return Text(
+                  displayName,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              }
+            },
           ),
           Text(
             AuthService.firebase().currentUser?.email ??
