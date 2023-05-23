@@ -14,3 +14,7 @@ class GlobalUserNotFound implements GlobalUserException {}
 
 
 class CouldNotGetDisplayName implements GlobalUserException {}
+
+class CouldNotUploadImage implements GlobalUserException {}
+
+class CouldNotGetIconURL implements GlobalUserException {}

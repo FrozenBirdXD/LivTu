@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/services/profile/global_user.dart';
 import 'package:livtu/services/profile/global_user_constants.dart';
 import 'package:livtu/services/profile/global_user_exceptions.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class GlobalUserService {
   String userId = AuthService.firebase().currentUser!.id;
@@ -26,6 +30,41 @@ class GlobalUserService {
       throw GlobalUserNotFound();
     } catch (e) {
       throw CouldNotGetDisplayName();
+    }
+  }
+
+  Future<String> getIconURL() async {
+    try {
+      String documentId = await getDocumentId();
+      DocumentSnapshot snapshot = await users.doc(documentId).get();
+      if (snapshot.exists) {
+        Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+        if (data != null) {
+          return data[iconURLFieldName] ?? '';
+        }
+      }
+      throw GlobalUserNotFound();
+    } catch (e) {
+      throw CouldNotGetIconURL();
+    }
+  }
+
+  Future<String> uploadImageToStorage(XFile pickedImage) async {
+    try {
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+      firebase_storage.Reference storageRef = firebase_storage
+          .FirebaseStorage.instance
+          .ref()
+          .child('profile_images/$fileName');
+
+      await storageRef.putFile(File(pickedImage.path));
+
+      String downloadURL = await storageRef.getDownloadURL();
+
+      return downloadURL;
+    } catch (e) {
+      throw CouldNotUploadImage();
     }
   }
 
@@ -90,9 +129,9 @@ class GlobalUserService {
     }
   }
 
-  Future<GlobalUser> createNewUser() async {
+  Future<GlobalUser> createNewUser({required String newUserId}) async {
     final doc = await users.add({
-      userIdFieldName: userId,
+      userIdFieldName: newUserId,
       photoURLFieldName: '',
       displayNameFieldName: '',
       iconURLFieldName: '',
@@ -101,7 +140,7 @@ class GlobalUserService {
     final user = await doc.get();
     return GlobalUser(
       documentId: user.id,
-      userId: userId,
+      userId: newUserId,
       description: '',
       iconURL: '',
       displayName: '',
