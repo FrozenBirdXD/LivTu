@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/services/profile/global_user.dart';
 import 'package:livtu/services/profile/global_user_constants.dart';
 import 'package:livtu/services/profile/global_user_exceptions.dart';
 
 class GlobalUserService {
+  String userId = AuthService.firebase().currentUser!.id;
   final users = FirebaseFirestore.instance.collection('users');
 
   // singleton
@@ -11,8 +13,25 @@ class GlobalUserService {
   GlobalUserService._sharedInstance();
   factory GlobalUserService() => _shared;
 
-  Future<String> getDocumentId({required String userId}) async {
-    QuerySnapshot querySnapshot = await users.where(userIdFieldName, isEqualTo: userId).get();
+  Future<String> getDisplayName() async {
+    try {
+      String documentId = await getDocumentId();
+      DocumentSnapshot snapshot = await users.doc(documentId).get();
+      if (snapshot.exists) {
+        Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+        if (data != null) {
+          return data[displayNameFieldName] ?? '';
+        }
+      }
+      throw GlobalUserNotFound();
+    } catch (e) {
+      throw CouldNotGetDisplayName();
+    }
+  }
+
+  Future<String> getDocumentId() async {
+    QuerySnapshot querySnapshot =
+        await users.where(userIdFieldName, isEqualTo: userId).get();
     if (querySnapshot.docs.isNotEmpty) {
       return querySnapshot.docs.first.id;
     } else {
@@ -20,7 +39,7 @@ class GlobalUserService {
     }
   }
 
-  Stream<Iterable<GlobalUser>> getGlobalUser({required String userId}) {
+  Stream<Iterable<GlobalUser>> getGlobalUser() {
     return users
         .where(userIdFieldName, isEqualTo: userId)
         .snapshots()
@@ -28,10 +47,10 @@ class GlobalUserService {
   }
 
   Future<void> updatePhotoURL({
-    required String documentId,
     required String url,
   }) async {
     try {
+      String documentId = await getDocumentId();
       await users.doc(documentId).update({photoURLFieldName: url});
     } catch (e) {
       throw CouldNotUpdatePhotoURL();
@@ -39,10 +58,10 @@ class GlobalUserService {
   }
 
   Future<void> updateDisplayName({
-    required String documentId,
     required String name,
   }) async {
     try {
+      String documentId = await getDocumentId();
       await users.doc(documentId).update({displayNameFieldName: name});
     } catch (e) {
       throw CouldNotUpdateDisplayName();
@@ -50,10 +69,10 @@ class GlobalUserService {
   }
 
   Future<void> updateIconURL({
-    required String documentId,
     required String url,
   }) async {
     try {
+      String documentId = await getDocumentId();
       await users.doc(documentId).update({iconURLFieldName: url});
     } catch (e) {
       throw CloudNotUpdateIconURL();
@@ -61,17 +80,17 @@ class GlobalUserService {
   }
 
   Future<void> updateDescription({
-    required String documentId,
     required String description,
   }) async {
     try {
+      String documentId = await getDocumentId();
       await users.doc(documentId).update({descriptionFieldName: description});
     } catch (e) {
       throw CouldNotUpdateDescription();
     }
   }
 
-  Future<GlobalUser> createNewUser({required String userId}) async {
+  Future<GlobalUser> createNewUser() async {
     final doc = await users.add({
       userIdFieldName: userId,
       photoURLFieldName: '',
