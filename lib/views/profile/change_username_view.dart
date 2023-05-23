@@ -131,9 +131,7 @@ class _ChangeUsernameViewState extends State<ChangeUsernameView> {
     final isValid = _formKey.currentState!.validate();
     if (isValid) {
       try {
-        String id = await GlobalUserService().getDocumentId(userId: AuthService.firebase().currentUser!.id);
         await GlobalUserService().updateDisplayName(
-          documentId: id,
           name: _controller.text,
         );
         ScaffoldMessenger.of(context).showSnackBar(

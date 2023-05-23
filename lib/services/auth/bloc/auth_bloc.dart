@@ -58,7 +58,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           email: email,
           password: password,
         );
-        GlobalUserService().createNewUser(userId: provider.currentUser!.id);
+        GlobalUserService().createNewUser();
         await provider.sendEmailVerification();
         emit(const AuthNeedVerificationState(isLoading: false));
       } on Exception catch (e) {
