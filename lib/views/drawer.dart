@@ -8,6 +8,26 @@ import 'package:livtu/utils/dialogs/sign_out_dialog.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Drawer getUniversalDrawer({required BuildContext context}) {
+
+  Widget buildProfileImage(BuildContext context) {
+    return FutureBuilder<String>(
+      future: getIconURL(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return const Text('Error');
+        } else {
+          final iconURL = snapshot.data;
+          return CircleAvatar(
+            backgroundColor: Colors.grey.shade800,
+            backgroundImage: NetworkImage(iconURL ?? ''),
+          );
+        }
+      },
+    );
+  }
+
   return Drawer(
     child: ListView(
       padding: const EdgeInsets.all(0),
@@ -19,12 +39,12 @@ Drawer getUniversalDrawer({required BuildContext context}) {
           child: UserAccountsDrawerHeader(
             decoration: const BoxDecoration(color: Colors.teal),
             accountName: FutureBuilder<String>(
-              future: getUserName(context),
+              future: getUserName(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
-                  return Text('Error: $snapshot.error');
+                  return const Text('Error');
                 } else {
                   String displayName = snapshot.data ?? 'username not set';
                   return Text(
@@ -39,29 +59,7 @@ Drawer getUniversalDrawer({required BuildContext context}) {
                   AppLocalizations.of(context)!.notRegistered,
             ),
             currentAccountPictureSize: const Size.square(40),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.teal.shade100,
-              child: FutureBuilder<String>(
-                future: getUserName(context),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return const Text('?');
-                  } else {
-                    String displayName = snapshot.data ?? '?';
-                    String firstLetter = displayName[0];
-                    return Text(
-                      firstLetter,
-                      style: const TextStyle(
-                        fontSize: 25.0,
-                        color: Colors.teal,
-                      ),
-                    );
-                  }
-                },
-              ), //Text
-            ),
+            currentAccountPicture: buildProfileImage(context),
           ),
         ),
         ListTile(

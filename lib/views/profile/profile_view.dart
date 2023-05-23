@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:livtu/constants/routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:livtu/services/auth/auth_service.dart';
+import 'package:livtu/services/profile/global_user_service.dart';
 import 'package:livtu/services/profile/global_user_helper.dart';
 
 class ProfileView extends StatefulWidget {
@@ -14,6 +16,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   final double coverHeight = 280;
   final double profileHeight = 160;
+  GlobalUserService service = GlobalUserService();
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +44,12 @@ class _ProfileViewState extends State<ProfileView> {
       child: Column(
         children: [
           FutureBuilder<String>(
-            future: getUserName(context),
+            future: getUserName(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
-                return Text('Error: $snapshot.error');
+                return const Text('Error');
               } else {
                 String displayName = snapshot.data ?? 'username not set';
                 return Text(
@@ -90,30 +93,55 @@ class _ProfileViewState extends State<ProfileView> {
         ),
         Positioned(
           top: top,
-          child: buildProfileImage(),
+          child: GestureDetector(
+            onTap: () {
+              selectProfileImage();
+            },
+            child: buildProfileImage(context),
+          ),
         ),
       ],
     );
   }
 
-  CircleAvatar buildProfileImage() {
-    return CircleAvatar(
-      radius: profileHeight / 2,
-      backgroundColor: Colors.grey.shade800,
-      backgroundImage: const NetworkImage(
-        'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      ),
-      child: Container(
-        width: profileHeight,
-        height: profileHeight,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.grey.shade100,
-            width: 5.0,
-          ),
-        ),
-      ),
+  selectProfileImage() async {
+    final ImagePicker imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      String imageURL = await service.uploadImageToStorage(pickedImage);
+      service.updateIconURL(url: imageURL);
+    }
+  }
+
+  Widget buildProfileImage(BuildContext context) {
+    return FutureBuilder<String>(
+      future: getIconURL(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return const Text('Error');
+        } else {
+          final iconURL = snapshot.data;
+          return CircleAvatar(
+            radius: profileHeight / 2,
+            backgroundColor: Colors.grey.shade800,
+            backgroundImage: NetworkImage(iconURL ?? ''),
+            child: Container(
+              width: profileHeight,
+              height: profileHeight,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.grey.shade100,
+                  width: 5.0,
+                ),
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 
