@@ -90,7 +90,12 @@ class _ProfileViewState extends State<ProfileView> {
           margin: EdgeInsets.only(
             bottom: bottom,
           ),
-          child: buildCoverImage(),
+          child: GestureDetector(
+            onTap: () {
+              selectProfileBackground();
+            },
+            child: buildCoverImage(),
+          ),
         ),
         Positioned(
           top: top,
@@ -110,8 +115,19 @@ class _ProfileViewState extends State<ProfileView> {
     final pickedImage =
         await imagePicker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
-      String imageURL = await service.uploadImageToStorage(pickedImage);
+      String imageURL = await service.uploadProfileIconToStorage(pickedImage);
       service.updateIconURL(url: imageURL);
+    }
+  }
+
+  selectProfileBackground() async {
+    final ImagePicker imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      String imageURL =
+          await service.uploadProfileBackgroundToStorage(pickedImage);
+      service.updatePhotoURL(url: imageURL);
     }
   }
 
@@ -126,12 +142,13 @@ class _ProfileViewState extends State<ProfileView> {
         if (snapshot.hasError) {
           return const Text('Error');
         }
-        
+
         String iconURL = snapshot.data ?? '';
         if (iconURL == '') {
-          iconURL = 'https://firebasestorage.googleapis.com/v0/b/livtu-flutter.appspot.com/o/profile_images%2Fdefault%20icon.png?alt=media&token=c33ce1c3-f961-4c3e-ae7d-41da985659d9';
+          iconURL =
+              'https://firebasestorage.googleapis.com/v0/b/livtu-flutter.appspot.com/o/profile_images%2Fdefault%20icon.png?alt=media&token=c33ce1c3-f961-4c3e-ae7d-41da985659d9';
         }
-        
+
         return CircleAvatar(
           radius: profileHeight / 2,
           backgroundColor: Colors.grey.shade800,
@@ -153,16 +170,44 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 
-  Container buildCoverImage() {
-    return Container(
-      color: Colors.grey,
-      child: Image.network(
-        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-        width: double.infinity,
-        height: coverHeight,
-        fit: BoxFit.cover,
-      ),
-    );
+  Widget buildCoverImage() {
+    return StreamBuilder<String>(
+        stream: service.getPhotoURLStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+              color: Colors.grey,
+              width: double.infinity,
+              height: coverHeight,
+              child: const CircularProgressIndicator(),
+            );
+          }
+
+          if (snapshot.hasError) {
+            return Container(
+              color: Colors.grey,
+              width: double.infinity,
+              height: coverHeight,
+              child: const Text('Error'),
+            );
+          }
+
+          String photoURL = snapshot.data ?? '';
+          if (photoURL == '') {
+            photoURL =
+                'https://firebasestorage.googleapis.com/v0/b/livtu-flutter.appspot.com/o/profile_background%2Fdefault%20background.jpg?alt=media&token=58b786f3-b1a3-4f56-8ccd-9b9969b0a520';
+          }
+
+          return Container(
+            color: Colors.grey,
+            child: Image.network(
+              photoURL,
+              width: double.infinity,
+              height: coverHeight,
+              fit: BoxFit.cover,
+            ),
+          );
+        });
   }
 
   Center buildOptionButtons() {
