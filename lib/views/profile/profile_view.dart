@@ -53,7 +53,11 @@ class _ProfileViewState extends State<ProfileView> {
                 return const Text('Loading...');
               }
 
-              final displayName = snapshot.data ?? '';
+              String displayName = snapshot.data ?? '';
+              if (displayName == '') {
+                displayName = 'Username not set';
+              }
+
               return Text(
                 displayName,
                 style: const TextStyle(

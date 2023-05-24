@@ -56,7 +56,11 @@ Drawer getUniversalDrawer({required BuildContext context}) {
                   return const Text('Loading...');
                 }
 
-                final displayName = snapshot.data ?? '';
+                String displayName = snapshot.data ?? '';
+                if (displayName == '') {
+                  displayName = 'Username not set';
+                }
+
                 return Text(
                   displayName,
                   style: const TextStyle(fontSize: 18),
