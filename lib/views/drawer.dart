@@ -102,6 +102,7 @@ Drawer getUniversalDrawer({required BuildContext context}) {
           title: Text(AppLocalizations.of(context)!.support),
           onTap: () {
             Navigator.pop(context);
+            Navigator.of(context).pushNamed(supportRoute);
           },
         ),
         ListTile(

@@ -12,6 +12,7 @@ import 'package:livtu/services/schedule/provider/event_provider.dart';
 import 'package:livtu/views/schedule/schedule_view.dart';
 import 'package:livtu/views/settings/settings_view.dart';
 import 'package:livtu/views/study_material/study_material_view.dart';
+import 'package:livtu/views/support/support_view.dart';
 import 'package:livtu/views/tutor/tutor_view.dart';
 import 'package:livtu/views/user_auth/forgot_password_view.dart';
 import 'package:livtu/views/user_auth/login_view.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
             profileRoute: (context) => const ProfileView(),
             changePasswordRoute: (context) => const ChangePasswordView(),
             changeUsernameRoute: (context) => const ChangeUsernameView(),
+            supportRoute: (context) => const SupportView(),
           },
           title: 'LivTu',
           theme: ThemeData(
@@ -123,7 +125,8 @@ class _HomePageState extends State<HomePage> {
         if (state.isLoading) {
           LoadingScreen().show(
             context: context,
-            text: state.loadingText ?? AppLocalizations.of(context)!.inAMomentReadyPrompt,
+            text: state.loadingText ??
+                AppLocalizations.of(context)!.inAMomentReadyPrompt,
           );
         } else {
           LoadingScreen().hide();
