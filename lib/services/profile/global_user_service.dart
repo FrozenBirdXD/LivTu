@@ -33,6 +33,30 @@ class GlobalUserService {
     }
   }
 
+  Stream<String> getIconURLStream() {
+    return users
+        .where(userIdFieldName, isEqualTo: userId)
+        .snapshots()
+        .map((event) => event.docs.first)
+        .map((doc) => doc.data()[iconURLFieldName] ?? '');
+  }
+
+  Stream<String> getDisplayNameStream() {
+    return users
+        .where(userIdFieldName, isEqualTo: userId)
+        .snapshots()
+        .map((event) => event.docs.first)
+        .map((doc) => doc.data()[displayNameFieldName] ?? '');
+  }
+
+  Stream<String> getPhotoURLStream() {
+    return users
+        .where(userIdFieldName, isEqualTo: userId)
+        .snapshots()
+        .map((event) => event.docs.first)
+        .map((doc) => doc.data()[photoURLFieldName] ?? '');
+  }
+
   Future<String> getIconURL() async {
     try {
       String documentId = await getDocumentId();
@@ -49,7 +73,26 @@ class GlobalUserService {
     }
   }
 
-  Future<String> uploadImageToStorage(XFile pickedImage) async {
+  Future<String> uploadProfileBackgroundToStorage(XFile pickedImage) async {
+    try {
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+      firebase_storage.Reference storageRef = firebase_storage
+          .FirebaseStorage.instance
+          .ref()
+          .child('profile_background/$fileName');
+
+      await storageRef.putFile(File(pickedImage.path));
+
+      String downloadURL = await storageRef.getDownloadURL();
+
+      return downloadURL;
+    } catch (e) {
+      throw CouldNotUploadImage();
+    }
+  }
+
+  Future<String> uploadProfileIconToStorage(XFile pickedImage) async {
     try {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
 
