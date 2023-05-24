@@ -4,7 +4,6 @@ import 'package:livtu/constants/routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/services/profile/global_user_service.dart';
-import 'package:livtu/services/profile/global_user_helper.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -43,23 +42,25 @@ class _ProfileViewState extends State<ProfileView> {
       ),
       child: Column(
         children: [
-          FutureBuilder<String>(
-            future: getUserName(),
+          StreamBuilder<String>(
+            stream: service.getDisplayNameStream(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasError) {
+              if (snapshot.hasError) {
                 return const Text('Error');
-              } else {
-                String displayName = snapshot.data ?? 'username not set';
-                return Text(
-                  displayName,
-                  style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                );
               }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text('Loading...');
+              }
+
+              final displayName = snapshot.data ?? '';
+              return Text(
+                displayName,
+                style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              );
             },
           ),
           Text(
@@ -115,32 +116,39 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   Widget buildProfileImage(BuildContext context) {
-    return FutureBuilder<String>(
-      future: getIconURL(),
+    return StreamBuilder<String>(
+      stream: service.getIconURLStream(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
+        }
+
+        if (snapshot.hasError) {
           return const Text('Error');
-        } else {
-          final iconURL = snapshot.data;
-          return CircleAvatar(
-            radius: profileHeight / 2,
-            backgroundColor: Colors.grey.shade800,
-            backgroundImage: NetworkImage(iconURL ?? ''),
-            child: Container(
-              width: profileHeight,
-              height: profileHeight,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.grey.shade100,
-                  width: 5.0,
-                ),
+        }
+        
+        String iconURL = snapshot.data ?? '';
+        if (iconURL == '') {
+          iconURL = 'https://firebasestorage.googleapis.com/v0/b/livtu-flutter.appspot.com/o/profile_images%2Fdefault%20icon.png?alt=media&token=c33ce1c3-f961-4c3e-ae7d-41da985659d9';
+        }
+        
+        return CircleAvatar(
+          radius: profileHeight / 2,
+          backgroundColor: Colors.grey.shade800,
+          backgroundImage: NetworkImage(iconURL),
+          child: Container(
+            width: profileHeight,
+            height: profileHeight,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.grey.shade100,
+                width: 5.0,
+                strokeAlign: 0,
               ),
             ),
-          );
-        }
+          ),
+        );
       },
     );
   }

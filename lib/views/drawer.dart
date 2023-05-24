@@ -3,27 +3,34 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:livtu/constants/routes.dart';
 import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/services/auth/bloc/auth_bloc.dart';
-import 'package:livtu/services/profile/global_user_helper.dart';
+import 'package:livtu/services/profile/global_user_service.dart';
 import 'package:livtu/utils/dialogs/sign_out_dialog.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Drawer getUniversalDrawer({required BuildContext context}) {
+  final GlobalUserService userService = GlobalUserService();
 
   Widget buildProfileImage(BuildContext context) {
-    return FutureBuilder<String>(
-      future: getIconURL(),
+    return StreamBuilder<String>(
+      stream: userService.getIconURLStream(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return const Text('Error');
-        } else {
-          final iconURL = snapshot.data;
-          return CircleAvatar(
-            backgroundColor: Colors.grey.shade800,
-            backgroundImage: NetworkImage(iconURL ?? ''),
-          );
         }
+
+        if (snapshot.hasError) {
+          return const Text('Error');
+        }
+
+        String iconURL = snapshot.data ?? '';
+        if (iconURL == '') {
+          iconURL =
+              'https://firebasestorage.googleapis.com/v0/b/livtu-flutter.appspot.com/o/profile_images%2Fdefault%20icon.png?alt=media&token=c33ce1c3-f961-4c3e-ae7d-41da985659d9';
+        }
+        return CircleAvatar(
+          backgroundColor: Colors.grey.shade800,
+          backgroundImage: NetworkImage(iconURL),
+        );
       },
     );
   }
@@ -38,20 +45,22 @@ Drawer getUniversalDrawer({required BuildContext context}) {
           ),
           child: UserAccountsDrawerHeader(
             decoration: const BoxDecoration(color: Colors.teal),
-            accountName: FutureBuilder<String>(
-              future: getUserName(),
+            accountName: StreamBuilder<String>(
+              stream: userService.getDisplayNameStream(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
+                if (snapshot.hasError) {
                   return const Text('Error');
-                } else {
-                  String displayName = snapshot.data ?? 'username not set';
-                  return Text(
-                    displayName,
-                    style: const TextStyle(fontSize: 18),
-                  );
                 }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Text('Loading...');
+                }
+
+                final displayName = snapshot.data ?? '';
+                return Text(
+                  displayName,
+                  style: const TextStyle(fontSize: 18),
+                );
               },
             ),
             accountEmail: Text(
