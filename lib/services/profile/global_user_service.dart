@@ -9,7 +9,7 @@ import 'package:livtu/services/profile/global_user_exceptions.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class GlobalUserService {
-  String userId = AuthService.firebase().currentUser!.id;
+  String? userId;
   final users = FirebaseFirestore.instance.collection('users');
 
   // singleton
@@ -19,6 +19,8 @@ class GlobalUserService {
 
   Future<String> getDisplayName() async {
     try {
+      userId = AuthService.firebase().currentUser!.id;
+
       String documentId = await getDocumentId();
       DocumentSnapshot snapshot = await users.doc(documentId).get();
       if (snapshot.exists) {
@@ -34,6 +36,8 @@ class GlobalUserService {
   }
 
   Stream<String> getIconURLStream() {
+    userId = AuthService.firebase().currentUser!.id;
+
     return users
         .where(userIdFieldName, isEqualTo: userId)
         .snapshots()
@@ -42,6 +46,8 @@ class GlobalUserService {
   }
 
   Stream<String> getDisplayNameStream() {
+    userId = AuthService.firebase().currentUser!.id;
+
     return users
         .where(userIdFieldName, isEqualTo: userId)
         .snapshots()
@@ -50,6 +56,8 @@ class GlobalUserService {
   }
 
   Stream<String> getPhotoURLStream() {
+    userId = AuthService.firebase().currentUser!.id;
+
     return users
         .where(userIdFieldName, isEqualTo: userId)
         .snapshots()
@@ -58,6 +66,8 @@ class GlobalUserService {
   }
 
   Future<String> getIconURL() async {
+    userId = AuthService.firebase().currentUser!.id;
+
     try {
       String documentId = await getDocumentId();
       DocumentSnapshot snapshot = await users.doc(documentId).get();
@@ -74,6 +84,8 @@ class GlobalUserService {
   }
 
   Future<String> uploadProfileBackgroundToStorage(XFile pickedImage) async {
+    userId = AuthService.firebase().currentUser!.id;
+
     try {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -93,6 +105,8 @@ class GlobalUserService {
   }
 
   Future<String> uploadProfileIconToStorage(XFile pickedImage) async {
+    userId = AuthService.firebase().currentUser!.id;
+
     try {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -112,6 +126,8 @@ class GlobalUserService {
   }
 
   Future<String> getDocumentId() async {
+    userId = AuthService.firebase().currentUser!.id;
+
     QuerySnapshot querySnapshot =
         await users.where(userIdFieldName, isEqualTo: userId).get();
     if (querySnapshot.docs.isNotEmpty) {
@@ -122,6 +138,8 @@ class GlobalUserService {
   }
 
   Stream<Iterable<GlobalUser>> getGlobalUser() {
+    userId = AuthService.firebase().currentUser!.id;
+
     return users
         .where(userIdFieldName, isEqualTo: userId)
         .snapshots()
@@ -131,6 +149,8 @@ class GlobalUserService {
   Future<void> updatePhotoURL({
     required String url,
   }) async {
+    userId = AuthService.firebase().currentUser!.id;
+
     try {
       String documentId = await getDocumentId();
       await users.doc(documentId).update({photoURLFieldName: url});
@@ -142,6 +162,8 @@ class GlobalUserService {
   Future<void> updateDisplayName({
     required String name,
   }) async {
+    userId = AuthService.firebase().currentUser!.id;
+
     try {
       String documentId = await getDocumentId();
       await users.doc(documentId).update({displayNameFieldName: name});
@@ -153,6 +175,8 @@ class GlobalUserService {
   Future<void> updateIconURL({
     required String url,
   }) async {
+    userId = AuthService.firebase().currentUser!.id;
+
     try {
       String documentId = await getDocumentId();
       await users.doc(documentId).update({iconURLFieldName: url});
@@ -164,6 +188,8 @@ class GlobalUserService {
   Future<void> updateDescription({
     required String description,
   }) async {
+    userId = AuthService.firebase().currentUser!.id;
+
     try {
       String documentId = await getDocumentId();
       await users.doc(documentId).update({descriptionFieldName: description});
@@ -173,6 +199,8 @@ class GlobalUserService {
   }
 
   Future<GlobalUser> createNewUser({required String newUserId}) async {
+    userId = AuthService.firebase().currentUser!.id;
+
     final doc = await users.add({
       userIdFieldName: newUserId,
       photoURLFieldName: '',
