@@ -5,6 +5,7 @@ import 'package:livtu/services/auth/bloc/auth_bloc.dart';
 import 'package:livtu/services/auth/firebase_auth_provider.dart';
 import 'package:livtu/services/settings/language_provider.dart';
 import 'package:livtu/utils/loading/loading_screen.dart';
+import 'package:livtu/views/become_tutor/become_tutor_view.dart';
 import 'package:livtu/views/overview/overview.dart';
 import 'package:livtu/views/profile/change_username_view.dart';
 import 'package:livtu/views/schedule/edit_event_view.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
             changePasswordRoute: (context) => const ChangePasswordView(),
             changeUsernameRoute: (context) => const ChangeUsernameView(),
             supportRoute: (context) => const SupportView(),
+            becomeTutorRoute: (context) => const BecomeTutorView(),
           },
           title: 'LivTu',
           theme: ThemeData(

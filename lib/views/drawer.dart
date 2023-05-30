@@ -95,6 +95,7 @@ Drawer getUniversalDrawer({required BuildContext context}) {
           title: Text(AppLocalizations.of(context)!.becomeTutor),
           onTap: () {
             Navigator.pop(context);
+            Navigator.of(context).pushNamed(becomeTutorRoute);
           },
         ),
         ListTile(
