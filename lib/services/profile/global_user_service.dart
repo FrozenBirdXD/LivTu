@@ -45,6 +45,16 @@ class GlobalUserService {
         .map((doc) => doc.data()[iconURLFieldName] ?? '');
   }
 
+  Stream<String> getDescriptionStream() {
+    userId = AuthService.firebase().currentUser!.id;
+
+    return users
+        .where(userIdFieldName, isEqualTo: userId)
+        .snapshots()
+        .map((event) => event.docs.first)
+        .map((doc) => doc.data()[descriptionFieldName] ?? '');
+  }
+
   Stream<String> getDisplayNameStream() {
     userId = AuthService.firebase().currentUser!.id;
 
@@ -212,7 +222,7 @@ class GlobalUserService {
     return GlobalUser(
       documentId: user.id,
       userId: newUserId,
-      description: '',
+      description: 'Write a brief introduction here - interests, academic background...',
       iconURL: '',
       displayName: '',
       photoURL: '',
