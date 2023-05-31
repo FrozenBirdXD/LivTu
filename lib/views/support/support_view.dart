@@ -33,6 +33,7 @@ class _SupportViewState extends State<SupportView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Support'),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(

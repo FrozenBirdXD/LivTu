@@ -71,8 +71,66 @@ class _ProfileViewState extends State<ProfileView> {
             AuthService.firebase().currentUser?.email ??
                 AppLocalizations.of(context)!.notRegistered,
           ),
-          const Divider(
-            height: 1,
+          const SizedBox(
+            height: 30.0,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(changeDescriptionRoute);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Description',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  StreamBuilder<String>(
+                    stream: service.getDescriptionStream(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text('Error');
+                      }
+          
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Text('Loading...');
+                      }
+          
+                      String description = snapshot.data ?? '';
+                      if (description == '') {
+                        description =
+                            'Write a brief introduction here - interests, academic background...';
+                      }
+          
+                      return Text(
+                        description,
+                        style: const TextStyle(fontSize: 20),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(
             height: 24,
