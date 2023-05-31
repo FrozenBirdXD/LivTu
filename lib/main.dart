@@ -7,6 +7,7 @@ import 'package:livtu/services/settings/language_provider.dart';
 import 'package:livtu/utils/loading/loading_screen.dart';
 import 'package:livtu/views/become_tutor/become_tutor_view.dart';
 import 'package:livtu/views/overview/overview.dart';
+import 'package:livtu/views/profile/change_description_view.dart';
 import 'package:livtu/views/profile/change_username_view.dart';
 import 'package:livtu/views/schedule/edit_event_view.dart';
 import 'package:livtu/services/schedule/provider/event_provider.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
             changeUsernameRoute: (context) => const ChangeUsernameView(),
             supportRoute: (context) => const SupportView(),
             becomeTutorRoute: (context) => const BecomeTutorView(),
+            changeDescriptionRoute:(context) => const ChangeDescriptionView(),
           },
           title: 'LivTu',
           theme: ThemeData(
