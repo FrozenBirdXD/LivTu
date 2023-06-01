@@ -4,6 +4,8 @@ import 'package:livtu/constants/routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:livtu/services/auth/auth_service.dart';
 import 'package:livtu/services/profile/global_user_service.dart';
+import 'package:livtu/services/profile/box_widget.dart';
+import 'package:livtu/views/profile/subject_selection_view.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -74,6 +76,103 @@ class _ProfileViewState extends State<ProfileView> {
           const SizedBox(
             height: 30.0,
           ),
+          Column(
+            children: [
+              const Text(
+                'Subjects',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              StreamBuilder<List<String>>(
+                stream: service.getSubjectsStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text('Error');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
+
+                  final subjects = snapshot.data ?? [];
+
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: subjects.map((subject) {
+                            return GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Delete Subject'),
+                                      content: Text(
+                                          'Are you sure you want to delete this subject: $subject?'),
+                                      actions: [
+                                        OutlinedButton(
+                                          child: const Text('Cancel'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        OutlinedButton(
+                                          child: const Text('Delete'),
+                                          onPressed: () async {
+                                            List<String> savedSubjects =
+                                                await GlobalUserService()
+                                                    .getSubjectsStream()
+                                                    .first;
+                                            savedSubjects.remove(subject);
+                                            GlobalUserService().updateSubjects(
+                                                subjects: savedSubjects);
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              child: Box(subject: subject),
+                            );
+                          }).toList(),
+                        ),
+                        IconButton(
+                          tooltip: 'Add subject',
+                          onPressed: () async {
+                            final availableSubjects =
+                                await getAvailableSubjects();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SubjectSelectionView(
+                                  availableSubjects: availableSubjects,
+                                ),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 30,
+              )
+            ],
+          ),
           GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(changeDescriptionRoute);
@@ -111,17 +210,17 @@ class _ProfileViewState extends State<ProfileView> {
                       if (snapshot.hasError) {
                         return const Text('Error');
                       }
-          
+
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Text('Loading...');
                       }
-          
+
                       String description = snapshot.data ?? '';
                       if (description == '') {
                         description =
                             'Write a brief introduction here - interests, academic background...';
                       }
-          
+
                       return Text(
                         description,
                         style: const TextStyle(fontSize: 20),
@@ -305,5 +404,33 @@ class _ProfileViewState extends State<ProfileView> {
         ],
       ),
     );
+  }
+
+  Future<List<String>> getAvailableSubjects() async {
+    List<String> addedSubjects = await service.getSubjectsStream().first;
+
+    List<String> possibleSubjects = [
+      'Mathematics',
+      'Physics',
+      'History',
+      'English',
+      'German',
+      'IT',
+      'Social Studies',
+      'Geography',
+      'French',
+      'Sports',
+      'Art',
+      'Biology',
+      'Musik',
+      'Chemistry',
+      'Economy and Law',
+    ];
+
+    List<String> availableSubjects = possibleSubjects
+        .where((subject) => !addedSubjects.contains(subject))
+        .toList();
+
+    return availableSubjects;
   }
 }
