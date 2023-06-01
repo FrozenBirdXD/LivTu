@@ -35,6 +35,16 @@ class GlobalUserService {
     }
   }
 
+  Stream<List<String>> getSubjectsStream() {
+    userId = AuthService.firebase().currentUser!.id;
+
+    return users
+        .where(userIdFieldName, isEqualTo: userId)
+        .snapshots()
+        .map((event) => event.docs.first)
+        .map((doc) => List<String>.from(doc.data()[subjectsFieldName] ?? []));
+  }
+
   Stream<String> getIconURLStream() {
     userId = AuthService.firebase().currentUser!.id;
 
@@ -92,6 +102,7 @@ class GlobalUserService {
       throw CouldNotGetIconURL();
     }
   }
+
 
   Future<String> uploadProfileBackgroundToStorage(XFile pickedImage) async {
     userId = AuthService.firebase().currentUser!.id;
@@ -169,6 +180,19 @@ class GlobalUserService {
     }
   }
 
+  Future<void> updateSubjects({
+    required List<String> subjects,
+  }) async {
+    userId = AuthService.firebase().currentUser!.id;
+
+    try {
+      String documentId = await getDocumentId();
+      await users.doc(documentId).update({subjectsFieldName: subjects});
+    } catch (e) {
+      throw CouldNotUpdatePhotoURL();
+    }
+  }
+
   Future<void> updateDisplayName({
     required String name,
   }) async {
@@ -222,10 +246,12 @@ class GlobalUserService {
     return GlobalUser(
       documentId: user.id,
       userId: newUserId,
-      description: 'Write a brief introduction here - interests, academic background...',
+      description:
+          'Write a brief introduction here - interests, academic background...',
       iconURL: '',
       displayName: '',
       photoURL: '',
+      subjects: [''],
     );
   }
 }
