@@ -8,6 +8,7 @@ class GlobalUser {
   final String? displayName;
   final String? iconURL;
   final String? description;
+  final List<String>? subjects;
 
   GlobalUser({
     required this.photoURL,
@@ -16,6 +17,7 @@ class GlobalUser {
     required this.description, 
     required this.documentId,
     required this.userId,
+    required this.subjects
   });
 
   GlobalUser.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
@@ -24,5 +26,6 @@ class GlobalUser {
         photoURL = snapshot.data()[photoURLFieldName],
         displayName = snapshot.data()[displayNameFieldName],
         iconURL = snapshot.data()[iconURLFieldName],
-        description = snapshot.data()[descriptionFieldName] as String;
+        description = snapshot.data()[descriptionFieldName] as String,
+        subjects = List<String>.from(snapshot.data()[subjectsFieldName] ?? []);
 }
