@@ -9,6 +9,7 @@ class GlobalUser {
   final String? iconURL;
   final String? description;
   final List<String>? subjects;
+  final bool? isTutor;
 
   GlobalUser({
     required this.photoURL,
@@ -17,7 +18,8 @@ class GlobalUser {
     required this.description, 
     required this.documentId,
     required this.userId,
-    required this.subjects
+    required this.subjects,
+    required this.isTutor,
   });
 
   GlobalUser.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
@@ -27,5 +29,6 @@ class GlobalUser {
         displayName = snapshot.data()[displayNameFieldName],
         iconURL = snapshot.data()[iconURLFieldName],
         description = snapshot.data()[descriptionFieldName] as String,
-        subjects = List<String>.from(snapshot.data()[subjectsFieldName] ?? []);
+        subjects = List<String>.from(snapshot.data()[subjectsFieldName] ?? []),
+        isTutor = snapshot.data()[isTutorFieldName] as bool;
 }

@@ -35,6 +35,16 @@ class GlobalUserService {
     }
   }
 
+  Stream<bool> getIsTutorStream() {
+    userId = AuthService.firebase().currentUser!.id;
+
+    return users
+        .where(userIdFieldName, isEqualTo: userId)
+        .snapshots()
+        .map((event) => event.docs.first)
+        .map((doc) => doc.data()[isTutorFieldName] ?? '');
+  }
+
   Stream<List<String>> getSubjectsStream() {
     userId = AuthService.firebase().currentUser!.id;
 
@@ -102,7 +112,6 @@ class GlobalUserService {
       throw CouldNotGetIconURL();
     }
   }
-
 
   Future<String> uploadProfileBackgroundToStorage(XFile pickedImage) async {
     userId = AuthService.firebase().currentUser!.id;
@@ -252,6 +261,7 @@ class GlobalUserService {
       displayName: '',
       photoURL: '',
       subjects: [''],
+      isTutor: false,
     );
   }
 }
