@@ -35,46 +35,49 @@ class _ScheduleViewState extends State<ScheduleView> {
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _calendarView = CalendarView.day;
-                    _calendarKey = UniqueKey();
-                  });
-                },
-                child: Text(AppLocalizations.of(context)!.day),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _calendarView = CalendarView.week;
-                    _calendarKey = UniqueKey();
-                  });
-                },
-                child: Text(AppLocalizations.of(context)!.week),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _calendarView = CalendarView.month;
-                    _calendarKey = UniqueKey();
-                  });
-                },
-                child: Text(AppLocalizations.of(context)!.month),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _calendarView = CalendarView.schedule;
-                    _calendarKey = UniqueKey();
-                  });
-                },
-                child: Text(AppLocalizations.of(context)!.schedule),
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _calendarView = CalendarView.day;
+                      _calendarKey = UniqueKey();
+                    });
+                  },
+                  child: Text(AppLocalizations.of(context)!.day),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _calendarView = CalendarView.week;
+                      _calendarKey = UniqueKey();
+                    });
+                  },
+                  child: Text(AppLocalizations.of(context)!.week),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _calendarView = CalendarView.month;
+                      _calendarKey = UniqueKey();
+                    });
+                  },
+                  child: Text(AppLocalizations.of(context)!.month),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _calendarView = CalendarView.schedule;
+                      _calendarKey = UniqueKey();
+                    });
+                  },
+                  child: Text(AppLocalizations.of(context)!.schedule),
+                ),
+              ],
+            ),
           ),
           Expanded(
             child: SfCalendar(
