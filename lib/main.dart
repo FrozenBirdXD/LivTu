@@ -15,7 +15,7 @@ import 'package:livtu/views/schedule/schedule_view.dart';
 import 'package:livtu/views/settings/settings_view.dart';
 import 'package:livtu/views/study_material/study_material_view.dart';
 import 'package:livtu/views/support/support_view.dart';
-import 'package:livtu/views/tutor/tutor_view.dart';
+import 'package:livtu/views/community/community_view.dart';
 import 'package:livtu/views/user_auth/forgot_password_view.dart';
 import 'package:livtu/views/user_auth/login_view.dart';
 import 'package:livtu/views/profile/change_password_view.dart';
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
             changeUsernameRoute: (context) => const ChangeUsernameView(),
             supportRoute: (context) => const SupportView(),
             becomeTutorRoute: (context) => const BecomeTutorView(),
-            changeDescriptionRoute:(context) => const ChangeDescriptionView(),
+            changeDescriptionRoute: (context) => const ChangeDescriptionView(),
           },
           title: 'LivTu',
           theme: ThemeData(
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _views = [
     const Overview(),
     const ScheduleView(),
-    const TutorView(),
+    const CommunityView(),
     const StudyMaterialView(),
   ];
 
@@ -158,9 +158,9 @@ class _HomePageState extends State<HomePage> {
                   icon: const Icon(Icons.calendar_month),
                   label: AppLocalizations.of(context)!.schedule,
                 ),
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.people),
-                  label: AppLocalizations.of(context)!.tutor,
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.people),
+                  label: 'Community',
                 ),
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.menu_book_rounded),
