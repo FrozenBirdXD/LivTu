@@ -178,7 +178,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   },
                                 );
                               },
-                              child: Box(subject: subject),
+                              child: Box(subject: subject, fontSize: 16.0,),
                             );
                           }).toList(),
                         ),
@@ -258,7 +258,7 @@ class _ProfileViewState extends State<ProfileView> {
 
                       return Text(
                         description,
-                        style: const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 16),
                       );
                     },
                   ),

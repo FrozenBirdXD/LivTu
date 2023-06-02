@@ -35,7 +35,6 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // Process the form data and submit the application
       String name = _nameController.text;
       String email = _emailController.text;
       String phone = _phoneController.text;
@@ -45,9 +44,8 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
       String certifications = _certificationsController.text;
       String skills = _skillsController.text;
 
-      // Perform your application submission logic here
+      // submit logic here
 
-      // Reset the form fields
       _nameController.clear();
       _emailController.clear();
       _phoneController.clear();
@@ -57,13 +55,12 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
       _certificationsController.clear();
       _skillsController.clear();
 
-      // Show a confirmation dialog
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Application Submitted'),
           content:
-              Text('Thank you, $name! Your application has been submitted.'),
+              Text('Thank you, $name! Your application has been submitted. You will be notified as soon as your submission has been reviewed.'),
           actions: [
             OutlinedButton(
               onPressed: () {
@@ -85,13 +82,14 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(32.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
               const SizedBox(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       'Become a Tutor',
@@ -103,7 +101,7 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
                     SizedBox(height: 16),
                     Text(
                       'As a tutor, you will have the opportunity to help other students by sharing your knowledge and expertise.',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 18),
                     ),
                     SizedBox(height: 16),
                     Text(
