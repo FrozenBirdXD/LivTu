@@ -44,30 +44,65 @@ class _ProfileViewState extends State<ProfileView> {
       ),
       child: Column(
         children: [
-          StreamBuilder<String>(
-            stream: service.getDisplayNameStream(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Text('Error');
-              }
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StreamBuilder<String>(
+                stream: service.getDisplayNameStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text('Error');
+                  }
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Text('Loading...');
-              }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text('Loading...');
+                  }
 
-              String displayName = snapshot.data ?? '';
-              if (displayName == '') {
-                displayName = 'Username not set';
-              }
+                  String displayName = snapshot.data ?? '';
+                  if (displayName == '') {
+                    displayName = 'Username not set';
+                  }
 
-              return Text(
-                displayName,
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
-              );
-            },
+                  return Text(
+                    displayName,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(
+                width: 6,
+              ),
+              StreamBuilder<bool>(
+                stream: service.getIsTutorStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text('Error');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text('Loading...');
+                  }
+
+                  bool isTutor = snapshot.data ?? false;
+
+                  if (isTutor) {
+                    return const Tooltip(
+                      triggerMode: TooltipTriggerMode.tap,
+                      message: 'Certified Tutor',
+                      child: Icon(
+                        Icons.verified_rounded,
+                        color: Colors.teal,
+                      ),
+                    );
+                  }
+
+                  return Container();
+                },
+              ),
+            ],
           ),
           Text(
             AuthService.firebase().currentUser?.email ??
