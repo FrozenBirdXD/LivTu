@@ -45,33 +45,67 @@ Drawer getUniversalDrawer({required BuildContext context}) {
           ),
           child: UserAccountsDrawerHeader(
             decoration: const BoxDecoration(color: Colors.teal),
-            accountName: StreamBuilder<String>(
-              stream: userService.getDisplayNameStream(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return const Text('Error');
-                }
+            accountName: Row(
+              children: [
+                StreamBuilder<String>(
+                  stream: userService.getDisplayNameStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Error');
+                    }
 
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Text('Loading...');
-                }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text('Loading...');
+                    }
 
-                String displayName = snapshot.data ?? '';
-                if (displayName == '') {
-                  displayName = 'Username not set';
-                }
+                    String displayName = snapshot.data ?? '';
+                    if (displayName == '') {
+                      displayName = 'Username not set';
+                    }
 
-                return Text(
-                  displayName,
-                  style: const TextStyle(fontSize: 18),
-                );
-              },
+                    return Text(
+                      displayName,
+                      style: const TextStyle(fontSize: 18),
+                    );
+                  },
+                ),
+                const SizedBox(
+                  width: 4,
+                ),
+                StreamBuilder<bool>(
+                  stream: userService.getIsTutorStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Error');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text('Loading...');
+                    }
+
+                    bool isTutor = snapshot.data ?? false;
+
+                    if (isTutor) {
+                      return const Tooltip(
+                        triggerMode: TooltipTriggerMode.tap,
+                        message: 'Certified Tutor',
+                        child: Icon(
+                          Icons.verified_rounded,
+                          color: Colors.white,
+                        ),
+                      );
+                    }
+
+                    return SizedBox.shrink();
+                  },
+                ),
+              ],
             ),
             accountEmail: Text(
               AuthService.firebase().currentUser?.email ??
                   AppLocalizations.of(context)!.notRegistered,
             ),
-            currentAccountPictureSize: const Size.square(40),
+            currentAccountPictureSize: const Size.square(45),
             currentAccountPicture: buildProfileImage(context),
           ),
         ),
