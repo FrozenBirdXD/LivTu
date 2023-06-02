@@ -176,6 +176,26 @@ class GlobalUserService {
         .map((event) => event.docs.map((doc) => GlobalUser.fromSnapshot(doc)));
   }
 
+  Stream<List<GlobalUser>> getAllGlobalUsers() {
+    return users.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => GlobalUser.fromSnapshot(doc)).toList();
+    });
+  }
+
+  Stream<List<GlobalUser>> getAllTutorGlobalUsers() {
+    return users
+        .where(isTutorFieldName, isEqualTo: true)
+        .snapshots()
+        .map((event) => event.docs.map((doc) => GlobalUser.fromSnapshot(doc)).toList());
+  }
+
+  Stream<List<GlobalUser>> getAllStudentsGlobalUsers() {
+    return users
+        .where(isTutorFieldName, isEqualTo: false)
+        .snapshots()
+        .map((event) => event.docs.map((doc) => GlobalUser.fromSnapshot(doc)).toList());
+  }
+
   Future<void> updatePhotoURL({
     required String url,
   }) async {
@@ -250,6 +270,8 @@ class GlobalUserService {
       displayNameFieldName: '',
       iconURLFieldName: '',
       descriptionFieldName: '',
+      subjectsFieldName: [''],
+      isTutorFieldName: false,
     });
     final user = await doc.get();
     return GlobalUser(
