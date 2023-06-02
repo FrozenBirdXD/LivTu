@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class Box extends StatelessWidget {
   final String subject;
-  const Box({super.key, required this.subject});
+  final double fontSize;
+  const Box({super.key, required this.subject, required this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,9 @@ class Box extends StatelessWidget {
       ),
       child: Text(
         subject,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
-          fontSize: 16,
+          fontSize: fontSize,
         ),
       ),
     );
