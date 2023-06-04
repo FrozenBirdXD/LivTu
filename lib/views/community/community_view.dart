@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:livtu/services/profile/box_widget.dart';
 import 'package:livtu/services/profile/global_user.dart';
 import 'package:livtu/services/profile/global_user_service.dart';
+import 'package:livtu/views/community/community_profile_view.dart';
 import 'package:livtu/views/drawer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CommunityView extends StatefulWidget {
   const CommunityView({super.key});
@@ -165,12 +165,18 @@ class _CommunityViewState extends State<CommunityView> {
                       ],
                     ),
                     onTap: () {
-                      // Handle user profile view here
-                      // You can navigate to a new page or show a dialog with the user's details
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              CommunityProfileView(user: user),
+                        ),
+                      );
                     },
-                    trailing: const Icon(
-                      Icons.message,
-                      color: Colors.teal,
+                    trailing: IconButton(
+                      icon: const Icon(Icons.message,
+                          color: Colors.teal),
+                      onPressed: () {},
                     ),
                   ),
                 );
@@ -285,12 +291,18 @@ class _CommunityViewState extends State<CommunityView> {
                       ],
                     ),
                     onTap: () {
-                      // Handle user profile view here
-                      // You can navigate to a new page or show a dialog with the user's details
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              CommunityProfileView(user: user),
+                        ),
+                      );
                     },
-                    trailing: const Icon(
-                      Icons.message,
-                      color: Colors.teal,
+                    trailing: IconButton(
+                      icon: const Icon(Icons.message,
+                          color: Colors.teal),
+                      onPressed: () {},
                     ),
                   ),
                 );
