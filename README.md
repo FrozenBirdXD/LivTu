@@ -12,7 +12,7 @@ the chance to become tutors, creating a great community of learners. This reposi
 ## Features
 The LivTu Tutoring Platform proof of concept includes the following features:
 
-- User registration, login, forgot password etc.: Users can create accounts and log in to the platform .
+- User registration, login, forgot password etc.: Users can create accounts and log in to the platform.
 
 - Personalized profile pages: Users can set their own username, change profile and background picture, add a description of themselves, add subjects of interest.
 
@@ -30,7 +30,7 @@ The LivTu Tutoring Platform proof of concept includes the following features:
 
     - View tutor profiles and qualifications: Users can access detailed tutor profiles that provide information about their qualifications, expertise, and teaching experience. This feature helps students make informed decisions when choosing a tutor.
 
-**Please note that while these features are demonstrated in the proof of concept, they are not fully functional or integrated into a live tutoring platform.**
+**Please note that while these features are demonstrated in the proof of concept, they many not be fully functional or integrated into a live tutoring platform.**
 
 ## Screenshots
 Here are a few screenshots showcasing the user interface of the LivTu Tutoring Platform:
