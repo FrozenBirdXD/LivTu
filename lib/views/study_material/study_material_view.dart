@@ -26,45 +26,52 @@ class _StudyMaterialViewState extends State<StudyMaterialView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SubjectBox(
-                title: 'Box 1',
-                description: 'This is the first box.',
-                buttonText: 'Button 1',
+                title: 'Mathematics',
+                description:
+                    'Expert guidance in Mathematics to strengthen foundational knowledge and excel academically.',
+                buttonText: 'Learn More',
               ),
               SizedBox(height: 16.0),
               SubjectBox(
-                title: 'Box 2',
-                description: 'This is the second box.',
-                buttonText: 'Button 2',
+                title: 'English Language',
+                description:
+                    'Comprehensive support in English language skills, including reading, writing, and grammar.',
+                buttonText: 'Learn More',
               ),
               SizedBox(height: 16.0),
               SubjectBox(
-                title: 'Box 3',
-                description: 'This is the third box.',
-                buttonText: 'Button 3',
+                title: 'Science',
+                description:
+                    'Specialized tutoring in various science subjects, including biology, chemistry, and physics.',
+                buttonText: 'Learn More',
               ),
               SizedBox(height: 16.0),
               SubjectBox(
-                title: 'Box 4',
-                description: 'This is the fourth box.',
-                buttonText: 'Button 4',
+                title: 'Test Preparation (SAT/ACT)',
+                description:
+                    'Proven strategies and practice materials to excel in standardized tests like SAT and ACT.',
+                buttonText: 'Learn More',
               ),
               SizedBox(height: 16.0),
               SubjectBox(
-                title: 'Box 5',
-                description: 'This is the fifth box.',
-                buttonText: 'Button 5',
+                title: 'Foreign Languages (Spanish/French)',
+                description:
+                    'Interactive language lessons to develop fluency and cultural understanding in Spanish or French.',
+                buttonText: 'Learn More',
               ),
               SizedBox(height: 16.0),
               SubjectBox(
-                title: 'Box 6',
-                description: 'This is the sixth box.',
-                buttonText: 'Button 6',
+                title: 'Arts and Music',
+                description:
+                    'Creative tutoring for drawing, painting, music theory, and instrument instruction.',
+                buttonText: 'Learn More',
               ),
               SizedBox(height: 16.0),
               SubjectBox(
-                title: 'Box 7',
-                description: 'This is the seventh box.',
-                buttonText: 'Button 7',
+                title: 'History',
+                description:
+                    'In-depth guidance in historical events, analysis, and critical thinking skills.',
+                buttonText: 'Learn More',
               ),
               SizedBox(height: 16.0),
             ],

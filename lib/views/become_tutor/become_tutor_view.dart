@@ -59,8 +59,8 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Application Submitted'),
-          content:
-              Text('Thank you, $name! Your application has been submitted. You will be notified as soon as your submission has been reviewed.'),
+          content: Text(
+              'Thank you, $name! Your application has been submitted. You will be notified as soon as your submission has been reviewed.'),
           actions: [
             OutlinedButton(
               onPressed: () {
@@ -89,13 +89,15 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
             children: [
               const SizedBox(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Become a Tutor',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    Center(
+                      child: Text(
+                        'Tutor',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     SizedBox(height: 16),
@@ -113,9 +115,11 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                        '- Must be a current student at [Your University/School]'),
+                      '- Must be a current student at [Your University/School]',
+                    ),
                     Text(
-                        '- Proficient in the subject(s) you wish to teach - min. Grade B'),
+                      '- Proficient in the subject(s) you wish to teach - min. Grade B',
+                    ),
                     Text('- Good communication and interpersonal skills'),
                     SizedBox(height: 16),
                     Text(
@@ -129,7 +133,8 @@ class _BecomeTutorViewState extends State<BecomeTutorView> {
                     Text('- Earn money by helping others'),
                     Text('- Gain valuable teaching and leadership experience'),
                     Text(
-                        '- Enhance your understanding of the subject through teaching'),
+                      '- Enhance your understanding of the subject through teaching',
+                    ),
                     SizedBox(height: 16),
                     Text(
                       'To become a tutor, please fill out the application form:',
