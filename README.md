@@ -4,10 +4,34 @@ LivTu is a tutoring platform that aims to connect students with qualified tutors
 
 **Note: This proof of concept is not supported or functional as a real tutoring platform. It serves as a demonstration of the business idea.**
 
+![LivTuSplash](https://github.com/FrozenBirdXD/LivTu/assets/118717731/655fff44-858a-4569-8f14-4b54a2d888ef)
+
 ## Introduction
 
 The LivTu Tutoring Platform aims to change how students connect with tutors. Our platform has an easy-to-use interface that helps students find tutors who specialize in the subjects they need help with. Moreover, LivTu offers students 
 the chance to become tutors, creating a great community of learners. This repository demonstrates the initial version of the LivTu platform to showcase its concept and functionality.
+
+## Installation
+To install the LivTu Tutoring Platform on your device, follow these steps:
+
+1. Download the latest release APK file from the [Releases page](https://github.com/FrozenBirdXD/LivTu/releases) in this repository.
+
+2. Transfer the APK file to your Android device. 
+
+3. Using a file manager app on your Android device, navigate to the directory where you transferred the APK file in step 2.
+
+4. Tap on the LivTu Tutoring Platform APK file to begin the installation process.
+
+5. Follow the on-screen instructions to complete the installation. You may be prompted to allow installations from unknown sources for your file manager app.
+
+6. Once the installation is complete, you should see the LivTu Tutoring Platform icon on your device's app launcher or home screen.
+
+7. Tap on the LivTu Tutoring Platform icon to launch the app. You will be taken to the login screen.
+
+8. If you don't have an account yet, you can register a new account by following the registration process. If you already have an account, you can log in with your email and password.
+
+9. After logging in, you can explore the different features of the LivTu Tutoring Platform and start using it to connect with tutors or provide tutoring services.
+
 
 ## Features
 The LivTu Tutoring Platform proof of concept includes the following features:
@@ -21,6 +45,8 @@ The LivTu Tutoring Platform proof of concept includes the following features:
 - Support Page: FAQ section with answers to most questions and contact information.
 
 - Settings: Users can change their username and password.
+
+- Learning Material: Learning Material page for accessing educational resources from LivTu.
 
 - Languages: English and German are both supported by LivTu.
 
@@ -102,6 +128,7 @@ Other libraries and packages used in the project (from [pub.dev](https://pub.dev
 - image_picker (version 0.8.7+5): Allows users to pick images from their device's gallery or camera.
 - flutter_test (dev_dependency): Provides testing tools and utilities for Flutter applications.
 - flutter_lints (dev_dependency version 2.0.0): Lint rules and configurations for static analysis of the codebase.
+- flutter_launcher_icons (dev_dependency version 0.13.1): Simplifies Process for creation of launcher icon.
 
 ## License
-[MIT](https://github.com/FrozenBirdXD/LivTu/blob/master/LICENSE)
+The LivTu Tutoring Platform is released under the [MIT License](../../blob/master/LICENSE).
