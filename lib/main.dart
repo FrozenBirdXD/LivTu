@@ -150,9 +150,9 @@ class _HomePageState extends State<HomePage> {
                 });
               },
               items: [
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.home),
-                  label: AppLocalizations.of(context)!.overview,
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
                 ),
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.calendar_month),
