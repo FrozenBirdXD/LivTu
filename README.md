@@ -1,6 +1,7 @@
 # LivTu - Tutoring Platform
 
-LivTu is a tutoring platform that aims to connect students with qualified tutors for personalized learning experiences. This repository contains the proof of concept for the LivTu platform.
+LivTu is a tutoring platform that aims to connect students with qualified tutors for personalized learning experiences. This repository contains the proof of concept for the LivTu platform and the main code can be found under the 
+lib folder.
 
 **Note: This proof of concept is not supported or functional as a real tutoring platform. It serves as a demonstration of the business idea.**
 
